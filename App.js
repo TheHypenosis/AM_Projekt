@@ -1,10 +1,18 @@
+// App.js
+
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
+import React, { useEffect } from 'react';
+import initializeDatabase from './component/db/dbInit';
 
 export default function App() {
+  useEffect(() => {
+    initializeDatabase();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>ten tekst trzeba wyrzucic</Text>
+      <Text>Hello, SQLite!</Text>
       <StatusBar style="auto" />
     </View>
   );
