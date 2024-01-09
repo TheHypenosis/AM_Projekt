@@ -1,7 +1,7 @@
 import db from '../db'; 
 
 export const getNewsFeedShowcase = async () => {
-    const query = 'SELECT Name, Price, Image FROM ProdCatalog WHERE isNewsFeed = ?';
+    const query = 'SELECT * FROM ProdCatalog WHERE isNewsFeed = ?';
     const params = ['1'];
   
     return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ export const getNewsFeedShowcase = async () => {
   };
 
 export const getBestsellerShowcase = async () => {
-  const query = 'SELECT Name, Price, Image FROM ProdCatalog WHERE isBestseller = ?';
+  const query = 'SELECT * FROM ProdCatalog WHERE isBestseller = ?';
   const params = ['1'];
 
   return new Promise((resolve, reject) => {

@@ -1,8 +1,10 @@
 import db from '../db'; 
 
-export const getSearchResult = async (searchPhrase) => {
-    const query = 'SELECT * FROM ProdCatalog WHERE Name LIKE ?';
-    const params = [`%${searchPhrase}%`];
+export const getAvailability = async (prodID) => {
+    const query = 'SELECT SizeName, isAvailable FROM ProdSize WHERE ProdID = ?';
+    const params = [`${prodID}`];
+    console.log('Query:', query);
+    console.log('Params:', params);
     return new Promise((resolve, reject) => {
         db.transaction((transaction) => {
           transaction.executeSql(
@@ -11,8 +13,8 @@ export const getSearchResult = async (searchPhrase) => {
             (_, result) => {
               const data = [];
               for (let i = 0; i < result.rows.length; i++) {
-                const searchResultItem = result.rows.item(i);
-                data.push(searchResultItem);
+                const itemAvailability = result.rows.item(i);
+                data.push(itemAvailability);
               }
               resolve(data);
             },

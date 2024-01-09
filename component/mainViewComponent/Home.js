@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, TouchableOpacity, Dimensions, ScrollView   } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { useNavigation } from '@react-navigation/native';
 import { productImage } from '../imageHandler/productImageHandler'
 
 import { getBestsellerShowcase } from '../db/queries/showcaseObject.query';
@@ -16,6 +17,7 @@ const Home = () => {
   const carouselRef = useRef(null);
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +36,11 @@ const Home = () => {
 
           return {
             key: index.toString(),
+            prodID: item.ID,
             image: productImageObj,
             title: item.Name,
-            description: `$${item.Price.toFixed(2)}`,
+            price: `$${item.Price.toFixed(2)}`,
+            description: item.Description,
           };
         });
 
@@ -49,7 +53,8 @@ const Home = () => {
             key: index.toString(),
             image: productImageObj,
             title: item.Name,
-            description: `$${item.Price.toFixed(2)}`,
+            price: `$${item.Price.toFixed(2)}`,
+            description: item.Description,
           };
         });
 
@@ -73,6 +78,7 @@ const Home = () => {
 
   const renderNewsCarouselItem = ({ item }) => {  
     return (
+      <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {item})}>
       <View style={styles.newsCarouselItem}>
         {/* Carousel Image */}
         <Image source={item.image} style={styles.newsCarouselImage} />
@@ -83,13 +89,15 @@ const Home = () => {
         {/* Title and description */}
         <View style={[styles.textContainer, { backgroundColor: item.backgroundColor }]}>
           <Text style={styles.newsCarouselTitle}>{item.title}</Text>
-          <Text style={styles.newsCarouselDescription}>{item.description}</Text>
+          <Text style={styles.newsCarouselDescription}>{item.price}</Text>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 
   const renderBestsellerItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {item})}>
     <View style={styles.bestsellerCarouselItem}>
       {/* Carousel Image */}
       <Image source={item.image} style={styles.bestsellerCarouselImage} />
@@ -100,9 +108,10 @@ const Home = () => {
       {/* Title and description */}
       <View style={[styles.textContainer, { backgroundColor: item.backgroundColor }]}>
         <Text style={styles.bestsellerCarouselTitle}>{item.title}</Text>
-        <Text style={styles.bestsellerCarouselDescription}>{item.description}</Text>
+        <Text style={styles.bestsellerCarouselDescription}>{item.price}</Text>
       </View>
     </View>
+    </TouchableOpacity>
   )
 
   // Right Arrow in the News Carousel action

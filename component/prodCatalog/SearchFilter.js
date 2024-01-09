@@ -3,12 +3,16 @@ import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, TouchableOpacit
 import { getSearchResult } from "../db/queries/search.query";
 import { getCategories } from '../db/queries/categories.query';
 import { productImage } from '../imageHandler/productImageHandler'
+import { useNavigation } from '@react-navigation/native';
+
 
 const SearchFilter = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const navigation = useNavigation();
+
 
   const toggleFilterModal = () => {
     setShowFilterModal(!showFilterModal);
@@ -27,9 +31,11 @@ const SearchFilter = () => {
 
           return {
             key: index.toString(),
+            prodID: item.ID,
             image: productImageObj,
             title: item.Name,
-            description: `$${item.Price.toFixed(2)}`,
+            price: `$${item.Price.toFixed(2)}`,
+            description: item.Description,
           };
         });
 
@@ -77,9 +83,13 @@ const SearchFilter = () => {
     if (keepWords.includes(lowerCaseName)) {
       return categoryName;
     }
+    if (categoryName === 'Dresses') {
+      return 'Dress';
+    }
     if (lowerCaseName.endsWith('s')) {
       return categoryName.slice(0, -1);
     }
+    
     return categoryName;
   };
 
@@ -94,7 +104,7 @@ const SearchFilter = () => {
       <Image source={require(`../../assets/img/Search/chevron-right.png`)} style={styles.categoryIcon} />
     </TouchableOpacity>
   );
-
+    
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -142,7 +152,7 @@ const SearchFilter = () => {
 
         {/* Filter info and button */}
         {searchResults.length > 0 && (
-
+        
           <View style={styles.filtersContainer}>
             {/* "Results found" section */}
             <View >
@@ -163,20 +173,23 @@ const SearchFilter = () => {
 
         {/* Display search results */}
         {searchResults.map((item) => (
+          <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {item})}>          
           <View key={item.key} style={styles.productItem}>
             <Image source={item.image} style={styles.productImage} />
             <View style={styles.productDetails}>
               <Text style={styles.productTitle}>{item.title}</Text>
-              <Text style={styles.productDescription}>{item.description}</Text>
+              <Text style={styles.productPrice}>{item.price}</Text>
             </View>
             {/* Wishlist button */}
             <TouchableOpacity style={styles.buttonContainer}>
               <Image source={require('../../assets/img/Home/Wishlist.png')} />
             </TouchableOpacity>
           </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </SafeAreaView>
+    
   );
 };
 
@@ -258,7 +271,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: '#1F2223',
   },
-  productDescription: {
+  productPrice: {
     fontFamily: 'LoraRegular',
     fontSize: 16,
     color: '#363939',

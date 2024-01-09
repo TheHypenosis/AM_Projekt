@@ -13,6 +13,7 @@ import Home from './component/mainViewComponent/Home.js';
 import Profile from './component/userProfile/UserProfile.js';
 import initializeDatabase from './component/db/dbInit';
 import SearchFilter from './component/prodCatalog/SearchFilter.js';
+import ProductScreen from './component/prodCatalog/ProductScreen.js';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,6 +34,7 @@ function ProductCatalogStackScreen() {
   return (
     <CatalogStack.Navigator screenOptions={{ headerShown: false }}> 
       <CatalogStack.Screen name="Catalog" component={SearchFilter} />
+      <CatalogStack.Screen name="ProductScreen" component={ProductScreen} />
     </CatalogStack.Navigator>
   );
 }

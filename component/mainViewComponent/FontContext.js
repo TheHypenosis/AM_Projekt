@@ -12,8 +12,10 @@ export const FontProvider = ({ children }) => {
         LoraRegular: require('../../assets/fonts/Lora/Lora-Regular.ttf'), // Update the path
         LoraItalic: require('../../assets/fonts/Lora/Lora-Italic.ttf'), // Update the path
         LoraBold: require('../../assets/fonts/Lora/Lora-Bold.ttf'), // Update the path
+        LoraSemiBold: require('../../assets/fonts/Lora/static/Lora-SemiBold.ttf'),
         InterRegular: require('../../assets/fonts/Inter/static/Inter-Regular.ttf'),
         InterSemiBold: require('../../assets/fonts/Inter/static/Inter-SemiBold.ttf'),
+        InterMedium: require('../../assets/fonts/Inter/static/Inter-Medium.ttf'),
         // Add other variants if needed
       });
 
