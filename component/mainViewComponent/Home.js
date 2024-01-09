@@ -1,64 +1,93 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, TouchableOpacity, Dimensions, ScrollView   } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import { productImage } from '../imageHandler/productImageHandler'
 
+import { getBestsellerShowcase } from '../db/queries/showcaseObject.query';
+import { getNewsFeedShowcase } from '../db/queries/showcaseObject.query';
 import { useFontsLoaded} from './FontContext';
 
 const Home = () => {
+  const [newsShowcase, setNewsShowcase] = useState([]);
+  const [newsCarouselData, setNewsCarouselData] = useState([]);
+  const [bestsellerShowcase, setBestsellerShowcase] = useState([]);
+  const [bestsellerCarouselData, setBestsellerCarouselData] = useState([]);
   const fontsLoaded = useFontsLoaded();
   const carouselRef = useRef(null);
   const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch News Feed Showcase
+        const newsShowcaseData = await getNewsFeedShowcase();
+        setNewsShowcase(newsShowcaseData);
+        const bestsellerShowcaseData = await getBestsellerShowcase();
+        setBestsellerShowcase(bestsellerShowcaseData);
+
+        // Map data to newsCarouselData format
+        const newsMappedData = newsShowcaseData.map((item, index) => {
+          // Use the dynamic key to access the image
+          const productImageKey = `${item.Image}`;
+          const productImageObj = productImage[productImageKey];
+
+          return {
+            key: index.toString(),
+            image: productImageObj,
+            title: item.Name,
+            description: `$${item.Price.toFixed(2)}`,
+          };
+        });
+
+        const bestsellerMappedData = bestsellerShowcaseData.map((item, index) => {
+          // Use the dynamic key to access the image
+          const productImageKey = `${item.Image}`;
+          const productImageObj = productImage[productImageKey];
+
+          return {
+            key: index.toString(),
+            image: productImageObj,
+            title: item.Name,
+            description: `$${item.Price.toFixed(2)}`,
+          };
+        });
+
+        setNewsCarouselData(newsMappedData);
+        setBestsellerCarouselData(bestsellerMappedData);
+      } catch (error) {
+        console.error('Error fetching and mapping data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  
+  
 
   const handleCartPress = () => {
     // Add your logic for handling cart button press here
     console.log('Cart button pressed');
   };
 
-  const newsCarouselData = [
-    {
-      image: require('../../img/Home/newsCarrousel-Image1.png'),
-      title: 'Trousers #PUMPKIN',
-      description: '$40.00',
-      backgroundColor: '#A1806E',
-    },
-    {
-      image: require('../../img/Home/newsCarrousel-Image2.png'),
-      title: 'Trousers #SALVIA',
-      description: '$60.00',
-      backgroundColor: '#92AF96',
-    },
-  ];
-
-  const bestsellersData = [
-    {
-        image: require('../../img/Home/bestsellers-Image1.png'),
-        title: 'Shirt #FLORA',
-        description: '$40.00',
-        backgroundColor: '#F6F6F6',
-      },
-    {
-        image: require('../../img/Home/bestsellers-Image2.png'),
-        title: 'Shorts #FLORA',
-        description: '$40.00',
-        backgroundColor: '#F6F6F6',
-    },
-  ]
-
-  const renderNewsCarouselItem = ({ item }) => (
-    <View style={styles.newsCarouselItem}>
-      {/* Carousel Image */}
-      <Image source={item.image} style={styles.newsCarouselImage} />
-      {/* Wishlist button */}
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Image source={require('../../img/Home/Wishlist.png')} />
-      </TouchableOpacity>
-      {/* Title and description */}
-      <View style={[styles.textContainer, { backgroundColor: item.backgroundColor }]}>
-        <Text style={styles.newsCarouselTitle}>{item.title}</Text>
-        <Text style={styles.newsCarouselDescription}>{item.description}</Text>
+  const renderNewsCarouselItem = ({ item }) => {  
+    return (
+      <View style={styles.newsCarouselItem}>
+        {/* Carousel Image */}
+        <Image source={item.image} style={styles.newsCarouselImage} />
+        {/* Wishlist button */}
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Image source={require('../../assets/img/Home/Wishlist.png')} />
+        </TouchableOpacity>
+        {/* Title and description */}
+        <View style={[styles.textContainer, { backgroundColor: item.backgroundColor }]}>
+          <Text style={styles.newsCarouselTitle}>{item.title}</Text>
+          <Text style={styles.newsCarouselDescription}>{item.description}</Text>
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   const renderBestsellerItem = ({ item }) => (
     <View style={styles.bestsellerCarouselItem}>
@@ -66,7 +95,7 @@ const Home = () => {
       <Image source={item.image} style={styles.bestsellerCarouselImage} />
       {/* Wishlist button */}
       <TouchableOpacity style={styles.buttonContainer}>
-        <Image source={require('../../img/Home/Wishlist.png')} />
+        <Image source={require('../../assets/img/Home/Wishlist.png')} />
       </TouchableOpacity>
       {/* Title and description */}
       <View style={[styles.textContainer, { backgroundColor: item.backgroundColor }]}>
@@ -108,20 +137,20 @@ const Home = () => {
         <View style={styles.header}>
             {/* Logo Image */}
             <Image
-            source={require('../../img/Home/Logo.png')} 
+            source={require('../../assets/img/Home/Logo.png')} 
             style={styles.logo}
             />
             <View style={{ flex: 1 }} />
             {/* Cart button */}
             <TouchableOpacity onPress={handleCartPress}>
             <Image
-                source={require('../../img/Home/Cart.png')} 
+                source={require('../../assets/img/Home/Cart.png')} 
             />
             </TouchableOpacity>
         </View>
         {/* Content - Main photo */}
         <Image
-        source={require('../../img/Home/mainPhoto.png')} 
+        source={require('../../assets/img/Home/mainPhoto.png')} 
         style={styles.resizedPhoto}
         />
 
@@ -133,13 +162,13 @@ const Home = () => {
             <View style={styles.arrowContainer}>
                 <TouchableOpacity onPress={snapToPrev}>
                 <Image
-                    source={require('../../img/Home/chevron-left.png')} 
+                    source={require('../../assets/img/Home/chevron-left.png')} 
                     style={styles.arrowIcon}
                 />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={snapToNext}>
                 <Image
-                    source={require('../../img/Home/chevron-right.png')} 
+                    source={require('../../assets/img/Home/chevron-right.png')} 
                     style={styles.arrowIcon}
                 />
                 </TouchableOpacity>
@@ -151,6 +180,7 @@ const Home = () => {
             renderItem={renderNewsCarouselItem}
             sliderWidth={windowWidth}
             itemWidth={windowWidth - 160}
+            itemHeight={(windowWidth - 160) * 1.5}
             layout="default"
             loop
             inactiveSlideScale={0.9} // Scale factor for inactive slides
@@ -166,10 +196,11 @@ const Home = () => {
             </TouchableOpacity>
         </View>
         <Carousel
-            data={bestsellersData}
+            data={bestsellerCarouselData}
             renderItem={renderBestsellerItem}
             sliderWidth={windowWidth}
             itemWidth={windowWidth - 200}
+            itemHeight={(windowWidth - 200) * 0.7}
             layout="default"
             loop
             inactiveSlideScale={1} // Scale factor for inactive slides
@@ -189,13 +220,13 @@ const Home = () => {
         <View style={styles.mediaContainer}>
             <View style={styles.mediaTitleContainer}>
                 <Image
-                    source={require('../../img/Home/Instagram.png')} 
+                    source={require('../../assets/img/Home/Instagram.png')} 
                     style={styles.instagramIcon}
                 />
                 <Text style={styles.mediaTitle}>matchymatchy_pl</Text>
             </View>
             <Image
-                source={require('../../img/Home/InstagramImages.png')} 
+                source={require('../../assets/img/Home/InstagramImages.png')} 
                 style={styles.instagramIcon}
             />
         </View>
@@ -247,7 +278,8 @@ const styles = StyleSheet.create({
   },
   newsCarouselImage: {
     width: '100%',
-    resizeMode: 'cover',
+    height: 300,
+    //resizeMode: 'cover',
     borderRadius: 8,
     marginBottom: 16,
     zIndex: 2,
@@ -277,7 +309,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     top: 10,
-    right: 20,
+    right: 15,
     zIndex: 3,
   },
   newsContainer: {
@@ -318,6 +350,7 @@ const styles = StyleSheet.create({
 
   bestsellerCarouselImage: {
     width: '100%',
+    height: 200,
     resizeMode: 'cover',
     borderRadius: 8,
     marginBottom: 16,

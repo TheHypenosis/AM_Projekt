@@ -2,7 +2,7 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState  } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, LogBox, View, Text   } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,10 +12,14 @@ import { FontProvider } from './component/mainViewComponent/FontContext';
 import Home from './component/mainViewComponent/Home.js';
 import Profile from './component/userProfile/UserProfile.js';
 import initializeDatabase from './component/db/dbInit';
+import SearchFilter from './component/prodCatalog/SearchFilter.js';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
+const CatalogStack = createStackNavigator();
+
+
 
 function WishListPlaceholder() {
   return(
@@ -25,12 +29,12 @@ function WishListPlaceholder() {
   )    
 }
 
-function SearchPlaceHolder() {
-  return(
-    <View>
-        <Text>Search</Text>
-    </View>
-)    
+function ProductCatalogStackScreen() {
+  return (
+    <CatalogStack.Navigator screenOptions={{ headerShown: false }}> 
+      <CatalogStack.Screen name="Catalog" component={SearchFilter} />
+    </CatalogStack.Navigator>
+  );
 }
 
 function AuthPlaceHolder() {
@@ -44,7 +48,7 @@ function AuthPlaceHolder() {
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}> 
-      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Base" component={Home} />
     </HomeStack.Navigator>
   );
 }
@@ -63,7 +67,7 @@ export function MainView() {
       <Tab.Screen name="Home" component={HomeStackScreen} options={{
           tabBarIcon: () => (
             <Image
-              source={require('./img/Home/Home.png')}
+              source={require('./assets/img/Home/Home.png')}
             />
           ),
           tabBarLabel: 'Home',
@@ -71,7 +75,7 @@ export function MainView() {
       <Tab.Screen name="WishList" component={WishListPlaceholder} options={{
           tabBarIcon: () => (
             <Image
-              source={require('./img/Home/Wishlist.png')}
+              source={require('./assets/img/Home/Wishlist.png')}
             />
           ),
           tabBarLabel: 'Wishlist',
@@ -79,15 +83,15 @@ export function MainView() {
       <Tab.Screen name="Profile" component={Profile} options={{
           tabBarIcon: () => (
             <Image
-              source={require('./img/Home/Profile.png')}
+              source={require('./assets/img/Home/Profile.png')}
             />
           ),
           tabBarLabel: 'Profile',
         }}/>
-      <Tab.Screen name="Search" component={SearchPlaceHolder} options={{
+      <Tab.Screen name="Search" component={ProductCatalogStackScreen} options={{
           tabBarIcon: () => (
             <Image
-              source={require('./img/Home/Search.png')}
+              source={require('./assets/img/Home/Search.png')}
             />
           ),
           tabBarLabel: 'Search',
@@ -98,10 +102,17 @@ export function MainView() {
 
 export default function App() {
   const [userToken, setUserToken] = React.useState('X5929755');
+  //const fontsLoaded = useFontsLoaded();
 
   useEffect(() => {
     initializeDatabase();
+    LogBox.ignoreLogs(['ViewPropTypes will be removed']);
   }, []);
+
+  // if (!fontsLoaded) {
+  //   console.log('Fonts are loading in App.js ...');
+  //   return null;
+  // }
 
   return (
     <FontProvider> 
@@ -128,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabText: {
-    fontFamily: 'InterRegular',
+    //fontFamily: 'InterRegular',
     fontSize: 10,
     color: '#1F2223',
   }

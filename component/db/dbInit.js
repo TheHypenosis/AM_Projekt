@@ -1,15 +1,14 @@
-// dbInit.js
-
 import db from './db';
 import categoryData from './categoryListDb.json';
 import sizeData from './sizeListDb.json';
 import productData from './productListDb.json';
 
 const createTables = () => {
+  console.log('Attempting to create tables ...');
     db.transaction(
       tx => {
         tx.executeSql(
-          'CREATE TABLE IF NOT EXISTS ProdCatalog (ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, Name TEXT, Description TEXT,  Price REAL,  Category TEXT,  Image BLOB, FOREIGN KEY(Category) REFERENCES Category(Name) );'
+          'CREATE TABLE IF NOT EXISTS ProdCatalog (ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, Name TEXT, Description TEXT,  Price REAL,  Category TEXT,  Image TEXT, isNewsFeed INTEGER, isBestseller INTEGER, FOREIGN KEY(Category) REFERENCES Category(Name) );'
         );
         tx.executeSql(
           'CREATE TABLE IF NOT EXISTS ProdSize ( ProdID INTEGER, SizeName TEXT, FOREIGN KEY(ProdID) REFERENCES ProdCatalog(ID), FOREIGN KEY(SizeName) REFERENCES Size(Name) );'
@@ -25,10 +24,12 @@ const createTables = () => {
         console.log('Error creating tables:', error);
       }
     );
+    console.log('Finished creating tables ...');
   };
 
 
   const insertCategoryData = () => {
+    console.log('Attempting to insertCategoryData');
     return new Promise((resolve, reject) => {
       categoryData.forEach(category => {
         db.transaction(
@@ -70,9 +71,11 @@ const createTables = () => {
         );
       });
     });
+    console.log('Finished inserting CategoryData');
   };
 
   const insertSizeData = () => {
+    console.log('Attempting to insertSizeData');
     return new Promise((resolve, reject) => {
       sizeData.forEach(size => {
         db.transaction(
@@ -128,8 +131,8 @@ const createTables = () => {
                 const existingCategory = results.rows._array[0];
                 if (!existingCategory) {
                   tx.executeSql(
-                    'INSERT INTO ProdCatalog (Name, Description, Price, Category, Image) VALUES (?, ?, ?, ?, ?);',
-                    [product.name, product.description, product.price, product.category, product.image],
+                    'INSERT INTO ProdCatalog (Name, Description, Price, Category, Image, isNewsFeed, isBestseller) VALUES (?, ?, ?, ?, ?, ?, ?);',
+                    [product.name, product.description, product.price, product.category, product.image, product.isNewsFeed, product.isBestseller],
                     (_, results) => {
                       console.log('Product data inserted for:', product.name);
                     },
@@ -163,11 +166,15 @@ const createTables = () => {
 
   const initializeDatabase = async () => {
     console.log('Initializing database...');
+    //To clear the DB, uncomment the 2 lines below.
+    // await db.closeAsync();
+    // await db.deleteAsync();
     createTables();
     await insertCategoryData();
     await insertSizeData();
     await insertProductData();
     console.log('The initializeDatabase function has finished');
+    
   };
 
 export default initializeDatabase;
