@@ -16,9 +16,16 @@ const CartScreen = ({ route, navigation }) => {
     setTotalPrice(getTotalPrice(cart)); 
   }, [cart]);
 
+  const removeItem = (cartId) => {
+    const updatedCart = cartItems.filter((item) => item.cartId !== cartId);
+    setCartItems(updatedCart);
+    navigation.setParams({ cart: updatedCart });
+  };
+
   const goBackToHome = () => {
     navigation.navigate('Home', { cart: cartItems });
   };
+
 
 return (
   <ScrollView style={styles.scrollContainer}>
@@ -27,7 +34,7 @@ return (
         <Text style={styles.headerOrder}>Koszyk</Text>
       </View>
       {cartItems.map((product) => (
-        <CartItem key={product.cartId} product={product}  />
+        <CartItem key={product.cartId} product={product} removeItem={removeItem} />
       ))}
       <Text style={styles.totalPrice}>Suma: ${totalPrice}</Text>
       <TouchableOpacity style={styles.placeOrderButton}>
