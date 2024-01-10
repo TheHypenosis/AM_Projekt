@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation, route }) => {
           <ProductItem key={product.id} product={product} addToCart={addToCart} setCart={setCart} />
         ))}
       <TouchableOpacity onPress={() => navigation.navigate('Cart', { cart: cart })}>
-       <Text>Koszyk</Text>
+       <Text>Koszyk   {cart.length > 0 && <Badge status="error" value={cart.length} />}</Text>
       </TouchableOpacity>
       </View>
     </ScrollView>
