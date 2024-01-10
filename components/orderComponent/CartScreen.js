@@ -16,6 +16,8 @@ const CartScreen = ({ route, navigation }) => {
   const [editMode, setEditMode] = useState(false);
   const [editCard, setEditCard] = useState(false);
   const [isDateValid, setIsDateValid] = useState(true);
+  const [promoCode, setPromoCode] = useState('');
+  const [appliedPromoCode, setAppliedPromoCode] = useState(null);
 
   const [addressLine1, setAddressLine1] = useState('2972 Westheimer Rd.');
   const [addressLine2, setAddressLine2] = useState('Santa Ana, Illinois 85486');
@@ -23,6 +25,8 @@ const CartScreen = ({ route, navigation }) => {
   const [cardNumber, setCardNumber] = useState('1234 1234 1234 1234');
   const [cvv, setCvv] = useState('956');
   const [expirationDate, setExpirationDate] = useState('06/26');
+
+
 
   useEffect(() => {
     setCartItems(cart);
@@ -90,6 +94,21 @@ const CartScreen = ({ route, navigation }) => {
     setOrderMessage(null);
   };
 
+  
+  const applyPromoCode = () => {
+    if (promoCode === 'ABCD' && !appliedPromoCode) {
+      setTotalPrice(totalPrice * 0.78); // 22% zniżki na kod 'ABCD'
+      setAppliedPromoCode('ABCD');
+      setOrderMessage('Prawidłowy kod promocyjny znizka o 22%.');
+    } else if (promoCode === 'XYZ' && !appliedPromoCode) {
+      setTotalPrice(totalPrice * 0.5); // 50% zniżki na kod 'XYZ'
+      setAppliedPromoCode('XYZ');
+      setOrderMessage('Prawidłowy kod promocyjny znizka o 50%.');
+    } else {
+      setOrderMessage('Nieprawidłowy kod promocyjny lub już został użyty.');
+      setIsOrderModalVisible(true);
+    }
+  };
   
   const handleEdit = () => {
     setEditMode(!editMode);
@@ -268,12 +287,19 @@ return (
       >
         <Text style={styles.cardButtonText}>{editCard ? 'Save' : 'Edit'}</Text>
       </TouchableOpacity>
-
-            <View style={styles.inputContainer}>
+      <Text>    </Text>
+      <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Kod promocyjny:</Text>
-  
-            </View>
-
+              <TextInput
+                placeholder="Kod promocyjny"
+                 style={styles.input}
+                onChangeText={(code) => setPromoCode(code)}
+                />
+                <Text>    </Text>
+                <TouchableOpacity onPress={applyPromoCode} style={styles.applyPromoButton}>
+                   <Text style={styles.buttonText}>Apply</Text>
+                  </TouchableOpacity>
+                  </View>
             {orderMessage && (
               <Text style={styles.orderMessage}>{orderMessage}</Text>
             )}
@@ -409,6 +435,24 @@ const styles = {
   userInfoButtonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+  },
+  inputLabel: {
+    marginRight: 10,
+    width: 80, 
+  },
+  applyPromoButton: {
+    backgroundColor: 'blue', 
+    padding: 10,
+    borderRadius: 5,
   },
   };
 export default CartScreen;
