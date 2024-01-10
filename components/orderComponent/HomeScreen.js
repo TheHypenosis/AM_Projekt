@@ -18,6 +18,10 @@ const HomeScreen = ({ navigation, route }) => {
     setCart([...cart, { ...product, cartId: cart.length + 1 }]);
   };
 
+  const navigateToHome2 = () => {
+    navigation.navigate('Home2');
+  };
+
   const bluzy = products.filter((product) => product.type === 'bluza');
 
   return (
@@ -30,6 +34,9 @@ const HomeScreen = ({ navigation, route }) => {
       <TouchableOpacity onPress={() => navigation.navigate('Cart', { cart: cart })}>
        <Text>Koszyk   {cart.length > 0 && <Badge status="error" value={cart.length} />}</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigateToHome2()}>
+          <Text>Przenieś do Home2</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
