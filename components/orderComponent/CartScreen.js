@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { Modal, Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import CartItem from './CartItem';
 
 const getTotalPrice = (cartItems) => {
@@ -10,6 +10,8 @@ const CartScreen = ({ route, navigation }) => {
   const { cart } = route.params;
   const [cartItems, setCartItems] = useState(cart);
   const [totalPrice, setTotalPrice] = useState(getTotalPrice(cartItems));
+  const [orderMessage, setOrderMessage] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     setCartItems(cart);
@@ -21,6 +23,18 @@ const CartScreen = ({ route, navigation }) => {
     setCartItems(updatedCart);
     navigation.setParams({ cart: updatedCart });
   };
+
+  const placeOrder = () => {
+    if (cartItems.length === 0) {
+      setOrderMessage('Your cart is empty. Please add items before placing an order.');
+    } 
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setOrderMessage(null); // Dodaj to, aby wyczyścić komunikat po zamknięciu modala
+  };
+  
 
   const goBackToHome = () => {
     navigation.navigate('Home', { cart: cartItems });
@@ -36,10 +50,27 @@ return (
       {cartItems.map((product) => (
         <CartItem key={product.cartId} product={product} removeItem={removeItem} />
       ))}
-      <Text style={styles.totalPrice}>Suma: ${totalPrice}</Text>
-      <TouchableOpacity style={styles.placeOrderButton}>
+       <Text style={styles.totalPrice}>Suma: ${totalPrice}</Text>
+      {orderMessage && <Text style={styles.orderMessage}>{orderMessage}</Text>}
+      <TouchableOpacity onPress={placeOrder} style={styles.placeOrderButton}>
         <Text style={styles.placeOrderButtonText}>Złóż zamówienie</Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalMessage}>{orderMessage}</Text>
+            <TouchableOpacity onPress={closeModal} style={styles.modalCloseButton}>
+              <Text style={styles.modalCloseButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      
       <TouchableOpacity onPress={goBackToHome} style={styles.goBackButton}>
         <Text style={styles.goBackButtonText}>Powrót</Text>
       </TouchableOpacity>
