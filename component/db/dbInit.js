@@ -3,6 +3,7 @@ import categoryData from './data/categoryListDb.json';
 import sizeData from './data/sizeListDb.json';
 import productData from './data/productListDb.json';
 import prodSizeData from './data/prodSizeListDb.json';
+import userData from './data/userListDb.json';
 
 const createTables = () => {
   console.log('Attempting to create tables ...');
@@ -19,6 +20,15 @@ const createTables = () => {
         );
         tx.executeSql(
           'CREATE TABLE IF NOT EXISTS Size ( Name TEXT PRIMARY KEY UNIQUE );'
+        );
+        tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS User (Email TEXT PRIMARY KEY UNIQUE, Name TEXT, Surname TEXT, Phone INTEGER, Password TEXT, Photo TEXT, TEXT, PaymentMethod INTEGER, Address INTEGER, FOREIGN KEY(PaymentMethod) REFERENCES PaymentMethod(ID), FOREIGN KEY(Address) REFERENCES Address(ID) );'
+        );
+        tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS PaymentMethod (ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, Name TEXT, CardNumber INTEGER UNIQUE, CCV INTEGER, ExpiaryDate TEXT);'
+        );
+        tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS Address (ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, AddressLine1 TEXT, AddressLine2 TEXT, PostalCode TEXT, City TEXT, Country TEXT, Name TEXT, Surname TEXT);'
         );
       },
       error => {
@@ -207,6 +217,50 @@ const createTables = () => {
     });
   };
 
+  const insertUserData = () => {
+    console.log('Attempting to insertUserData');
+    return new Promise((resolve, reject) => {
+      userData.forEach(user => {
+        db.transaction(
+          tx => {
+            tx.executeSql(
+              'SELECT * FROM User WHERE Email = ?;',
+              [user.email],
+              (_, results) => {
+                const existingUser = results.rows._array[0];
+                if (!existingUser) {
+                  tx.executeSql(
+                    'INSERT INTO User (Email, Name, Surname, Phone, Password, Photo) VALUES (?, ?, ?, ?, ?, ?);',
+                    [user.email, user.name, user.surname, user.phone, user.password, user.photo],
+                    (_, results) => {
+                      console.log('User data inserted for:', user.name , ' ', user.surname);
+                    },
+                    error => {
+                      console.log('Error inserting user data for:', user.name , ' ', user.surname, error);
+                      reject(error);
+                    }
+                  );
+                } else {
+                  console.log('User already exists, skipping insertion for:', user.name , ' ', user.surname);
+                }
+              },
+              error => {
+                console.log('Error checking for existing user data:', error);
+                reject(error);
+              }
+            );
+          },
+          error => {
+            console.log('Error during user data transaction:', error);
+            reject(error);
+          },
+          () => {
+            resolve();
+          }
+        );
+      });
+    });
+  };
 
   const initializeDatabase = async () => {
     console.log('Initializing database...');
@@ -218,6 +272,7 @@ const createTables = () => {
     await insertSizeData();
     await insertProductData();
     await insertProdSizeData();
+    await insertUserData();
     console.log('The initializeDatabase function has finished');
     
   };
