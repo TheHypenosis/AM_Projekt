@@ -14,6 +14,9 @@ import Profile from './component/userProfile/UserProfile.js';
 import initializeDatabase from './component/db/dbInit';
 import SearchFilter from './component/prodCatalog/SearchFilter.js';
 import ProductScreen from './component/prodCatalog/ProductScreen.js';
+import WelcomeScreen from './component/authentication/WelcomeScreen';
+import LoginScreen from './component/authentication/LoginScreen';
+import RegisterScreen from './component/authentication/RegisterScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,7 +61,9 @@ function HomeStackScreen() {
 export function AuthView() {
   return(
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="SignIn" component={AuthPlaceHolder}/>
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   )
 }
@@ -103,7 +108,7 @@ export function MainView() {
 }
 
 export default function App() {
-  const [userToken, setUserToken] = React.useState('X5929755');
+  const [userToken, setUserToken] = React.useState(null);
   //const fontsLoaded = useFontsLoaded();
 
   useEffect(() => {
