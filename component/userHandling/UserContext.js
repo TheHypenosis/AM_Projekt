@@ -59,8 +59,8 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const login = 'leslieflores@email.com';
-    const password = 'lflores';
+    const login = null;
+    const password = null;
 
     // Fetch user data during initialization
     updateUserData({ login, password });
