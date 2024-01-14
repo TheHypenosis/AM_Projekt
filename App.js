@@ -7,6 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { useUser } from './component/userHandling/UserContext.js';
+
 import { FontProvider } from './component/mainViewComponent/FontContext';
 
 import Home from './component/mainViewComponent/Home.js';
@@ -17,6 +19,8 @@ import ProductScreen from './component/prodCatalog/ProductScreen.js';
 import WelcomeScreen from './component/authentication/WelcomeScreen';
 import LoginScreen from './component/authentication/LoginScreen';
 import RegisterScreen from './component/authentication/RegisterScreen';
+import AppWrapper from './AppWraper.js';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -107,8 +111,11 @@ export function MainView() {
   );
 }
 
-export default function App() {
+function App() {
   const [userToken, setUserToken] = React.useState(null);
+
+  const { user } = useUser();
+  console.log('Current user:', user);
   //const fontsLoaded = useFontsLoaded();
 
   useEffect(() => {
@@ -120,12 +127,12 @@ export default function App() {
   //   console.log('Fonts are loading in App.js ...');
   //   return null;
   // }
-
   return (
+    
     <FontProvider> 
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {userToken == null ? (
+      {user == null ? (
           // No token found, user isn't signed in
           <Stack.Screen name="Auth" component={AuthView} />
         ) : (
@@ -135,8 +142,13 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </FontProvider>
+    
   );
+  
 }
+export default AppWrapper(App);  
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -151,5 +163,3 @@ const styles = StyleSheet.create({
     color: '#1F2223',
   }
 });
-
-

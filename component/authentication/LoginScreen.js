@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../userHandling/UserContext';
+import AuthViewScreen from '../userHandling/Authentication';
+
 
 
 const LoginScreen = () => {
@@ -8,9 +11,12 @@ const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    
-  };
+    const { setUser } = useUser();
+
+    const handleLogin = (user) => {
+      setUser(user);
+    };
+
 
     return (
      <View style={styles.container}>
