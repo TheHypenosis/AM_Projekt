@@ -1,5 +1,3 @@
-// App.js
-
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState  } from 'react';
 import { StyleSheet, Image, LogBox, View, Text   } from 'react-native';
@@ -14,19 +12,29 @@ import Profile from './component/userProfile/UserProfile.js';
 import initializeDatabase from './component/db/dbInit';
 import SearchFilter from './component/prodCatalog/SearchFilter.js';
 import ProductScreen from './component/prodCatalog/ProductScreen.js';
+import AuthViewScreen from './component/userHandling/quickAuth.js';
+import WishlistTemp from './component/mainViewComponent/wishlistTemp.js';
+import PaymentMethodConfig from './component/userProfile/PaymentMethodConfig.js';
+import AddressConfig from './component/userProfile/AdressConfig.js';
+import PhotoConfig from './component/userProfile/PhotoConfig.js';
+import { UserProvider } from './component/userHandling/UserContext.js';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const CatalogStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 
 
-function WishListPlaceholder() {
+function ProfileStackScreen() {
   return(
-    <View>
-        <Text>Wishlist</Text>
-    </View>
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}> 
+      <ProfileStack.Screen name="Profile" component = {Profile} />
+      <ProfileStack.Screen name="PaymentMethodConfig" component = {PaymentMethodConfig} />
+      <ProfileStack.Screen name='AddressConfig' component = {AddressConfig} />
+      <ProfileStack.Screen name='PhotoConfig' component = {PhotoConfig} />
+    </ProfileStack.Navigator>
   )    
 }
 
@@ -51,6 +59,7 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}> 
       <HomeStack.Screen name="Base" component={Home} />
+      <HomeStack.Screen name="HomeProductScreen" component={ProductScreen} />
     </HomeStack.Navigator>
   );
 }
@@ -58,7 +67,7 @@ function HomeStackScreen() {
 export function AuthView() {
   return(
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="SignIn" component={AuthPlaceHolder}/>
+      <Stack.Screen name="SignIn" component={AuthViewScreen}/>
     </Stack.Navigator>
   )
 }
@@ -74,7 +83,7 @@ export function MainView() {
           ),
           tabBarLabel: 'Home',
         }}/>
-      <Tab.Screen name="WishList" component={WishListPlaceholder} options={{
+      <Tab.Screen name="WishList" component={WishlistTemp} options={{
           tabBarIcon: () => (
             <Image
               source={require('./assets/img/Home/Wishlist.png')}
@@ -82,7 +91,7 @@ export function MainView() {
           ),
           tabBarLabel: 'Wishlist',
         }} />
-      <Tab.Screen name="Profile" component={Profile} options={{
+      <Tab.Screen name="Profile" component={ProfileStackScreen} options={{
           tabBarIcon: () => (
             <Image
               source={require('./assets/img/Home/Profile.png')}
@@ -104,31 +113,27 @@ export function MainView() {
 
 export default function App() {
   const [userToken, setUserToken] = React.useState('X5929755');
-  //const fontsLoaded = useFontsLoaded();
 
   useEffect(() => {
     initializeDatabase();
     LogBox.ignoreLogs(['ViewPropTypes will be removed']);
   }, []);
 
-  // if (!fontsLoaded) {
-  //   console.log('Fonts are loading in App.js ...');
-  //   return null;
-  // }
-
   return (
     <FontProvider> 
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {userToken == null ? (
-          // No token found, user isn't signed in
-          <Stack.Screen name="Auth" component={AuthView} />
-        ) : (
-          // User is signed in
-          <Stack.Screen name="MainView" component={MainView}/>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+      <UserProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {userToken === null ? (
+              // No token found, user isn't signed in
+              <Stack.Screen name="Auth" component={AuthView} />
+            ) : (
+              // User is signed in
+              <Stack.Screen name="MainView" component={MainView}/>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserProvider>
     </FontProvider>
   );
 }

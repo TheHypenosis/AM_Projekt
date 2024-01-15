@@ -78,7 +78,7 @@ const Home = () => {
 
   const renderNewsCarouselItem = ({ item }) => {  
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {item})}>
+      <TouchableOpacity onPress={() => navigation.navigate('HomeProductScreen', {item})}>
       <View style={styles.newsCarouselItem}>
         {/* Carousel Image */}
         <Image source={item.image} style={styles.newsCarouselImage} />
@@ -97,7 +97,7 @@ const Home = () => {
   };
 
   const renderBestsellerItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {item})}>
+    <TouchableOpacity onPress={() => navigation.navigate('HomeProductScreen', {item})}>
     <View style={styles.bestsellerCarouselItem}>
       {/* Carousel Image */}
       <Image source={item.image} style={styles.bestsellerCarouselImage} />
