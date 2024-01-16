@@ -8,6 +8,8 @@ const RegisterScreen = () => {
 
     const navigation = useNavigation(); 
     const { setUser } = useUser();
+
+    const [errorMessage, setErrorMessage] = useState('');
     
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,6 +22,10 @@ const RegisterScreen = () => {
     
 
     console.log('Registering with:', { mail, password, name, surname, areacode, phone });
+    if (!mail || !password || !name || !surname || !areacode || !phone) {
+      setErrorMessage('Please fill in all fields.');
+      return;
+    }
 
     try {
       const areaCodeWithPhone = `${areacode}${phone}`;
@@ -35,12 +41,19 @@ const RegisterScreen = () => {
         console.log('User registered successfully');
          setUser({ email: mail, name, surname, phone: areaCodeWithPhone });
         
+      } else if (response.message === 'User already exists') {
+        console.error('User already exists:', response.message);
+        setErrorMessage('User with this email already exists.');
+
       } else {
         console.error('Error registering user:', response.message);
+        setErrorMessage('Registration failed. Please try again.');
        
       }
     } catch (error) {
       console.error('Error registering user:', error);
+      setErrorMessage('Email already used.');
+
       
     }    
   };
@@ -97,6 +110,8 @@ const RegisterScreen = () => {
           style={styles.phoneInput}
         />
         </View>
+        
+      {errorMessage ? (<Text style={styles.errorMessage}>{errorMessage}</Text>) : null}
       </View>
       <TouchableOpacity style={styles.RegisterButton} onPress={handleRegister}>
         <Text>Create an account</Text>
@@ -205,6 +220,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     wordWrap: 'break-word',
     marginBottom: 50,
+  },
+  errorMessage: {
+    color: 'red',
+    marginTop: 10,
   },
 });
 

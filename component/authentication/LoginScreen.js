@@ -12,6 +12,8 @@ const LoginScreen = () => {
 
 
     const { setUser } = useUser();
+    const [errorMessage, setErrorMessage] = useState(''); // Add error message state
+
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -28,11 +30,14 @@ const LoginScreen = () => {
           const user = userData[0];
           setLoggedInUser(user);
           setUser(user);
+          setErrorMessage('');
         } else {
           console.log('User not found');
+          setErrorMessage('User not found. Please check your login and password.')
         }
       } catch (error) {
         console.error('Error during login:', error);
+        setErrorMessage('An error occurred during login. Please try again.');
       }
     };
     const handleGoBack = () => {
@@ -54,8 +59,10 @@ const LoginScreen = () => {
         <Text style={styles.title}>MATCHY MATCHY</Text>
           <TextInput placeholder="E-mail" value={login} onChangeText={setLogin} style={styles.input}/>
           <TextInput placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry style={styles.input}/>
+          {errorMessage ? (<Text style={styles.errorMessage}>{errorMessage}</Text>) : null}
       </View>
        
+        
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text>Sign In</Text>
         </TouchableOpacity>
@@ -135,6 +142,11 @@ const styles = StyleSheet.create({
     color: '#363939',
     marginBottom: 300,
     marginTop: -200,
+  },
+  errorMessage: {
+    color: 'red',
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });
 
