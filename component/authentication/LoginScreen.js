@@ -11,7 +11,6 @@ const LoginScreen = () => {
     const navigation = useNavigation();
 
     const { setUser } = useUser();
-    const [loggedInUser, setLoggedInUser] = useState(/* your user object here */);
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
