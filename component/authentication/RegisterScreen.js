@@ -42,20 +42,22 @@ const RegisterScreen = () => {
     } catch (error) {
       console.error('Error registering user:', error);
       
-    }
-    const handleGoBack = () => {
-      navigation.goBack();
-    };
+    }    
+  };
+  
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-       <TouchableOpacity onPress={handleGoBack} style={styles.headerIcon}>
-         <Image source={require('../../assets/img/ProductPage/Arrow-left.png')} style={styles.iconImage} />
-       </TouchableOpacity>
-     </View>        
-        <Text style={styles.title}>Register</Text>
+      <TouchableOpacity onPress={handleGoBack} style={styles.headerIcon}>
+          <Image source={require('../../assets/img/ProductPage/Arrow-left.png')} style={styles.iconImage} />
+        </TouchableOpacity>
+     </View>
+     <View style={styles.content}>
+     <Text style={styles.title}> JOIN MATCHY MATCHY</Text>
       <TextInput
         placeholder="Email"
         value={mail}
@@ -94,8 +96,11 @@ const RegisterScreen = () => {
           onChangeText={setPhone}
           style={styles.phoneInput}
         />
+        </View>
       </View>
-      <Button title="Register" onPress={handleRegister} />
+      <TouchableOpacity style={styles.RegisterButton} onPress={handleRegister}>
+        <Text>Create an account</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -106,19 +111,44 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  header: {
+  headerIcon: {
     position: 'absolute',
     top: 40,
-    left: 20,
+    left: 24,
+  },
+  header: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    backgroundColor: '#ECD7BA',
+    paddingTop: 78,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
+    color: '#CA9446',
+    fontFamily: 'LoraBold',
+    fontWeight: '600',
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+    marginTop: 130,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 121,
   },
   input: {
     width: '80%',
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'white',
+    backgroundColor: 'white',
     borderWidth: 1,
     marginBottom: 20,
     padding: 10,
@@ -133,16 +163,48 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
     padding: 10,
+    width: 15,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    
   },
   phoneInput: {
     flex: 2,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    width: 70,
     padding: 10,
+    marginLeft: 10,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    borderWidth: 1,
+  },
+  RegisterButton: {
+    width: 342,
+    height: 48,
+    paddingLeft: 16,
+    paddingRight: 16,
+    backgroundColor: '#CA9446',
+    borderRadius: 6,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 16,
+    fontFamily: 'InterRegular',
+    fontWeight: '500',
+    color: '#363939',
+    marginBottom: 56,
+  },
+  title: {
+    width: 390,
+    textAlign: 'center',
+    color: '#CA9446',
+    fontSize: 24,
+    fontFamily: 'LoraBold',
+    fontWeight: '600',
+    wordWrap: 'break-word',
+    marginBottom: 50,
   },
 });
 
