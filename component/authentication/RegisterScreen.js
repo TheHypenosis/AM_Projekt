@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../userHandling/UserContext';
 import { addUserData } from '../db/queries/addUser.query';
@@ -43,14 +43,18 @@ const RegisterScreen = () => {
       console.error('Error registering user:', error);
       
     }
-
+    const handleGoBack = () => {
+      navigation.goBack();
+    };
   };
 
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Button title="Back" onPress={() => navigation.goBack()} />
-        </View>        
+      <View style={styles.header}>
+       <TouchableOpacity onPress={handleGoBack} style={styles.headerIcon}>
+         <Image source={require('../../assets/img/ProductPage/Arrow-left.png')} style={styles.iconImage} />
+       </TouchableOpacity>
+     </View>        
         <Text style={styles.title}>Register</Text>
       <TextInput
         placeholder="Email"
