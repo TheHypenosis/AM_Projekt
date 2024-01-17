@@ -1,41 +1,82 @@
-import {Button, Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import { Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import { useDispatch } from "react-redux";
+import { wishlistActions } from '../store/wl';
+import { useEffect, useState } from "react";
 
-export const ProductItem = ({ product, displayAction = true }) => {
+export const ProductItem = ({ product, displayAction = true, removeToWishlist, addToWishlist }) => {
+  const dispatch = useDispatch();
+  
+
+  const [like, setLike] = useState(product.like);
+
+
+  const addWishlistHandle = () => {
+    setLike(!like);
+    dispatch(wishlistActions.addToWishlist({
+      ...product,
+      like: true
+    }));
+  };
+
+
+  const removeWishlistHandle = () => {
+    setLike(!like);
+    dispatch(wishlistActions.removeToWishlist({
+      ...product,
+      like: false
+    }));
+  };
+
+
+  useEffect(() => {
+    setLike(product.like);
+  }, [product.like]);
+
 
   const likePress = () => {
-    console.log('likePress')
-  }
+    console.log('likePress');
+  };
 
   return (
     <View style={styles.productContainer}>
-      <Image style={styles.productImage} source={{
-        uri: 'https://picsum.photos/300/300',
-      }}/>
+
+      <Image style={styles.productImage} source={{ uri: 'https://picsum.photos/300/300' }} />
+      
+
       <View style={styles.productContent}>
         <View style={styles.productContentHeader}>
-          <Text style={styles.productContentTitle}>{ product.title }</Text>
-          {
-            product.like ? (
-              <TouchableHighlight onPress={likePress}>
-                <Image source={require('../assets/favorite.png')}/>
-              </TouchableHighlight>
-            ) : (
-              <TouchableHighlight onPress={likePress}>
-                <Image source={require('../assets/unfavorite.png')}/>
-              </TouchableHighlight>
-            )
-          }
+          <Text style={styles.productContentTitle}>{product.title}</Text>
+
+          {like ? (
+            <TouchableHighlight onPress={removeWishlistHandle}>
+              <Image source={require('../assets/favorite.png')} />
+            </TouchableHighlight>
+          ) : (
+            <TouchableHighlight onPress={addWishlistHandle}>
+              <Image source={require('../assets/unfavorite.png')} />
+            </TouchableHighlight>
+          )}
         </View>
-        <Text style={styles.productContentPrice}>${ product.price }</Text>
-        {
-          displayAction && (<View style={styles.productAction}>
-            <Button color="#000" title="Add to card"/>
-          </View>)
-        }
+
+        <Text style={styles.productContentPrice}>${product.price}</Text>
+        
+
+        {product.status === 0 ? (
+          <Text style={{ ...styles.productContentDelivered, color: '#52565e' }}></Text>
+        ) : product.status === 1 ? (
+          <Text style={{ ...styles.productContentDelivered, color: '#D68F26' }}>Płaszcz</Text>
+        ) : product.status === 2 ? (
+          <Text style={{ ...styles.productContentDelivered, color: '#1E9C40' }}>But</Text>
+        ) : product.status === 3 ? (
+          <Text style={{ ...styles.productContentDelivered, color: '#52565e' }}>Koszula</Text>
+        ) : (
+          <Text style={{ ...styles.productContentDelivered, color: '#52565e' }}>Inny Produkt</Text>
+        )}
       </View>
     </View>
-  )
-}
+  );
+};
+
 
 const styles = StyleSheet.create({
   productContainer: {
@@ -77,6 +118,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ECD7BA',
     borderRadius: 4
   }
-})
+});
 
-export default ProductItem
+export default ProductItem;

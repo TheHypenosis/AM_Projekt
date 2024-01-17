@@ -1,6 +1,5 @@
-import {Text, View, StyleSheet, ScrollView} from "react-native";
-import {StatusBar} from "expo-status-bar";
-import {Input, SearchIcon, Button, HamburgerIcon} from "native-base";
+import { View, StyleSheet, ScrollView} from "react-native";
+import { Button, HamburgerIcon} from "native-base";
 import OrderItem from "../components/OrderItem";
 import OrderEmptyState from "../components/OrderEmptyState";
 

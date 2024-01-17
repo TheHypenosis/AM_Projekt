@@ -1,15 +1,70 @@
-import {Text, View, StyleSheet, ScrollView} from "react-native";
-import {StatusBar} from "expo-status-bar";
-import {Input, InputGroup, InputLeftAddon, InputRightAddon, SearchIcon, Button, HamburgerIcon} from "native-base";
+import { View, StyleSheet, ScrollView} from "react-native";
+
+import {Input, SearchIcon, Button, HamburgerIcon} from "native-base";
 import SearchEmptyState from "../components/SearchEmptyState";
 import ProductItem from "../components/ProductItem";
+import {useEffect, useMemo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {searchActions} from "../store/serach";
 
 const SearchScreen = ({navigation}) => {
-  const product = {
-    title: 'Kimono #MOCCA',
-    price: '50.00',
-    like: false
+  const products = useSelector((state) => state.search.allProducts);
+  const filters = useSelector((state) => state.search.filters);
+
+  const dispatch = useDispatch()
+
+  const [search, setSearch] = useState('')
+
+  const searchInputHandle = (search) => {
+    setSearch(search)
+    dispatch(searchActions.setFilters({
+      ...filters,
+      search
+    }))
   }
+
+
+  const filterMethod = (products, filters) => {
+    let result = JSON.parse(JSON.stringify(products))
+    if (filters.search && filters.search.length) {
+      result = result.filter(p => {
+        return p.title?.startsWith(filters.search)
+      })
+    }
+    if (filters.min && filters.min > 0) {
+      result = result.filter(p => {
+        return Number(p.price) >= filters.min
+      })
+    }
+
+    if (filters.max && filters.max > 0) {
+      result = result.filter(p => {
+        return Number(p.price) <= filters.max
+      })
+    }
+
+    if (filters.min && filters.min > 0) {
+      result = result.filter(p => {
+        return Number(p.price) >= filters.min
+      })
+    }
+    if (filters.category && filters.category > 0) {
+      result = result.filter(p => {
+        return p.status === filters.category
+      })
+    }
+
+    return result
+  }
+
+
+  const displayProducts = useMemo(() => {
+    return filterMethod(products, filters)
+  }, [filters])
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <View style={styles.search}>
@@ -18,25 +73,37 @@ const SearchScreen = ({navigation}) => {
           <SearchIcon size="7" mt="0.5" mr="2" color="#000" />
           <Input w={{
             base: "70%",
-            md: "100%"
-          }} placeholder="nativebase" />
-          <Button variant="ghost" onPress={() => console.log("hello world")} colorScheme="dark">Done</Button>
+            md: "100%",
+          }} placeholder="szukaj" value={search} onChangeText={(value) => searchInputHandle(value)} />
         </View>
-        <View style={{ paddingHorizontal: 16 }}>
-          <SearchEmptyState/>
-        </View>
-        <View style={{ paddingHorizontal: 16, marginBottom: 16, flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <Button variant="outline" leftIcon={<HamburgerIcon size="sm" />} onPress={() => navigation.push('SearchFilterScreen')}>
-            Filters
-          </Button>
-        </View>
-        <View style={{ paddingBottom: 100 }}>
-          <ProductItem product={product} displayAction={false}/>
-          <ProductItem product={product} displayAction={false}/>
-          <ProductItem product={product} displayAction={false}/>
-          <ProductItem product={product} displayAction={false}/>
-          <ProductItem product={product} displayAction={false}/>
-        </View>
+        {
+          search && search.length && (
+            <>
+              {
+                displayProducts && displayProducts.length ? (
+                  <><>
+                    <View style={{ paddingHorizontal: 16, marginBottom: 16, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                      <Button variant="outline" leftIcon={<HamburgerIcon size="sm" />} onPress={() => navigation.push('SearchFilterScreen')}>
+                        Filters
+                      </Button>
+                    </View>
+                    <View>
+                      {
+                        displayProducts.map(p => ( <ProductItem product={p} key={p.id}/> ))
+                      }
+                    </View></>
+                    <View>
+                  
+                    </View></>
+                ) : (
+                  <View style={{ paddingHorizontal: 16 }}>
+                    <SearchEmptyState/>
+                  </View>
+                )
+              }
+            </>
+          )
+        }
       </ScrollView>
     </View>
   );
@@ -56,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScreen
+export default SearchScreen;

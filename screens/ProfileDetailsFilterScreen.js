@@ -1,8 +1,5 @@
 import {Text, View, StyleSheet, ScrollView} from "react-native";
-import {StatusBar} from "expo-status-bar";
 import {CheckIcon, Button, Input, SearchIcon, Select} from "native-base";
-import OrderItem from "../components/OrderItem";
-import OrderEmptyState from "../components/OrderEmptyState";
 import StatusSelect from "../components/StatusSelect";
 
 const Wishlist = ({navigation}) => {

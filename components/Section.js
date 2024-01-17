@@ -1,4 +1,5 @@
-import {StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+
 
 const Section = ({ title, action, actionFunc }) => {
   return (
@@ -8,8 +9,9 @@ const Section = ({ title, action, actionFunc }) => {
         <Text style={styles.action}>{ action }</Text>
       </TouchableHighlight>
     </View>
-  )
+  );
 }
+
 
 const styles = StyleSheet.create({
   section: {
@@ -27,6 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#797A7B'
   }
-})
+});
 
-export default Section
+export default Section;

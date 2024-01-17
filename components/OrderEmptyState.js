@@ -1,14 +1,18 @@
 import { Image, StyleSheet, Text, View} from "react-native";
 
+
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
+
       <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
       <Text style={styles.title}>Nie dokonałeś jeszcze rzadnych zamówień</Text>
       <Text style={styles.subtitle}>Będą tutaj jak jakieś zrobisz</Text>
     </View>
   )
 }
+
+
 const styles = StyleSheet.create({
   emptyState: {
     minHeight: '40%',

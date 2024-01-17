@@ -1,32 +1,31 @@
-import {Text, View, Button, StyleSheet, ScrollView} from "react-native";
-import {StatusBar} from "expo-status-bar";
-import Section from "../components/Section";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Header from "../components/Header";
-import CategoryGallery from "../components/CategoryGallery";
+import { useSelector } from "react-redux";
+import ProductItem from "../components/ProductItem";
 
+const HomeScreen = ({ navigation }) => {
 
-const HomeScreen = ({navigation}) => {
+  const products = useSelector((state) => state.wishlist.allProducts);
+
+ 
   const morePress = () => {
-    console.log('morePress')
+    console.log('morePress');
   }
 
-  const headerActionPress = () => {
-    console.log('headerActionPress')
-  }
+
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text>Home</Text>
-        <StatusBar style="auto" />
-        <Button
-          title="Go to Wishlist"
-          onPress={() =>
-            navigation.navigate('Wishlist')
-          }
-        />
-        <Header title="Wishlist" source={require('../assets/shopping-cart.png')} actionFunc={headerActionPress}/>
-        <CategoryGallery/>
+        <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
+          <Header title="Home" />
+        </View>
+        
+        <View style={{ width: '100%', paddingHorizontal: 16 }}>
+          {products.map(p => (
+            <ProductItem product={p} key={p.id} />
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
@@ -38,7 +37,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 70,
   },
 });
 
-export default HomeScreen
+export default HomeScreen;

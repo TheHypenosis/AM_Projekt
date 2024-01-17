@@ -1,5 +1,6 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
 
+
 const Header = ({ title, source, actionFunc }) => {
   return (
     <View style={styles.section}>
@@ -24,7 +25,8 @@ const styles = StyleSheet.create({
     color: '#363939'
   },
   action: {
+
   }
 })
 
-export default Header
+export default Header;
