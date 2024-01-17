@@ -11,7 +11,7 @@ const CategoryGallery = () => {
   return (
     <View style={styles.gallery}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>CG</Text>
+        <Text style={styles.headerText}>Produkty</Text>
         <Image source={require('../assets/more-horizontal.png')}/>
       </View>
       <View style={styles.content}>
@@ -22,7 +22,7 @@ const CategoryGallery = () => {
         <ProductItem product={product}/>
       </View>
       <View style={styles.footer}>
-        <Text>Więcej</Text>
+          <Text>Więcej</Text>
       </View>
     </View>
   )

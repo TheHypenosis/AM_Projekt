@@ -1,7 +1,10 @@
-import { View, StyleSheet, ScrollView} from "react-native";
+import {Text, View, Button, StyleSheet, ScrollView} from "react-native";
+import {StatusBar} from "expo-status-bar";
+import ProductItem from "../components/ProductItem";
 import EmptyState from "../components/EmptyState";
 import Header from "../components/Header";
 import CategoryGallery from "../components/CategoryGallery";
+import Section from "../components/Section";
 
 
 const Wishlist = ({navigation}) => {
@@ -11,18 +14,28 @@ const Wishlist = ({navigation}) => {
     like: true
   }
 
+  const morePress = () => {
+    console.log('morePress')
+  }
+
+  const headerActionPress = () => {
+    console.log('headerActionPress')
+  }
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={{ width: '100%', padding: 16 }}>
-          <Header title="Wishlist" />
+          <Header title="Wishlist" source={require('../assets/shopping-cart.png')} actionFunc={headerActionPress}/>
         </View>
         <View style={{ width: '100%', padding: 16 }}>
           <EmptyState/>
         </View>
         <View style={{ width: '100%', padding: 16 }}>
           <CategoryGallery/>
+        </View>
+        <View style={{ width: '100%', padding: 16 }}>
+          <Section title="---->" action="Dalej" actionFunc={morePress}/>
         </View>
       </View>
     </ScrollView>
@@ -35,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 190,
+    paddingTop: 195,
     paddingBottom: 250
   },
 });

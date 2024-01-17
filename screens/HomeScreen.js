@@ -1,5 +1,7 @@
 import {Text, View, Button, StyleSheet, ScrollView} from "react-native";
 import {StatusBar} from "expo-status-bar";
+import Section from "../components/Section";
+import Header from "../components/Header";
 import CategoryGallery from "../components/CategoryGallery";
 
 
@@ -23,6 +25,8 @@ const HomeScreen = ({navigation}) => {
             navigation.navigate('Wishlist')
           }
         />
+        <Header title="Wishlist" source={require('../assets/shopping-cart.png')} actionFunc={headerActionPress}/>
+        <Section title="You also may like" action="View all" actionFunc={morePress}/>
         <CategoryGallery/>
       </View>
     </ScrollView>

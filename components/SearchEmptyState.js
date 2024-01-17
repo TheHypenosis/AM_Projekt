@@ -3,12 +3,16 @@ import {Button, Image, StyleSheet, Text, View} from "react-native";
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-      <Text style={styles.title}> Brak produktu</Text>
-      
+      <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
+      <Text style={styles.title}> BRAK </Text>
+      <Text> </Text>
+      <Text style={styles.subtitle2}>.......</Text>
+      <View style={styles.action}>
+        <Button color="#000" title="KLIK"/>
+      </View>
     </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   emptyState: {
@@ -16,9 +20,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: '10%',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92AF96',
-    borderRadius: 10
+    alignItems: 'center'
   },
   image: {
     width: 145,
@@ -38,11 +40,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: '3%'
   },
+  subtitle2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#363931',
+    marginBottom: 16
+  },
   action: {
     width: '100%',
     height: 48,
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#CA9446',
     borderRadius: 6
   }
 })
