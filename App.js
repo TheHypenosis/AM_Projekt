@@ -9,6 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import SearchScreen from "./screens/SearchScreen";
 import {Box, NativeBaseProvider, Button} from "native-base";
 import AppScreen from "./screens/AppScreen";
+import ProfileDetailsFilterScreen from "./screens/ProfileDetailsFilterScreen";
 import SearchFilterScreen from "./screens/SearchFilterScreen";
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,10 @@ export default function App() {
             name="App"
             component={AppScreen}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProfileDetailsFilterScreen"
+            component={ProfileDetailsFilterScreen}
           />
           <Stack.Screen
             name="SearchFilterScreen"

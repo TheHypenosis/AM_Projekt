@@ -15,7 +15,7 @@ const AppScreen = () => {
       <Tab.Screen name="Wishlist" component={WishlistScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
-
+    
     </Tab.Navigator>
   )
 }

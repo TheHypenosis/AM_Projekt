@@ -1,10 +1,9 @@
 import {Text, View, StyleSheet, ScrollView} from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {CheckIcon, Button, Input, SearchIcon, Select, Checkbox} from "native-base";
+import {CheckIcon, Button, Input, SearchIcon, Select} from "native-base";
 import OrderItem from "../components/OrderItem";
 import OrderEmptyState from "../components/OrderEmptyState";
 import StatusSelect from "../components/StatusSelect";
-import SortSelect from "../components/SortSelect";
 
 const Wishlist = ({navigation}) => {
   const product = {
@@ -19,17 +18,10 @@ const Wishlist = ({navigation}) => {
       <ScrollView style={{ width: '100%' }}>
         <View style={{ padding: 16 }}>
           <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8 }}>Category</Text>
-          <Checkbox.Group onChange={(value) => console.log(value)} accessibilityLabel="choose numbers">
-            <Checkbox value="one" my={2}>
-              All
-            </Checkbox>
-            <Checkbox value="two">1</Checkbox>
-            <Checkbox value="two">2</Checkbox>
-            <Checkbox value="two">3</Checkbox>
-          </Checkbox.Group>
+          <StatusSelect/>
         </View>
         <View style={{ padding: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8 }}>Price</Text>
+          <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8 }}>Order Total</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Input placeholder="Min" w="45%" />
             <Input placeholder="Max" w="45%" />

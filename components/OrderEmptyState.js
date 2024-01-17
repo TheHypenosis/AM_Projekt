@@ -1,26 +1,23 @@
-import {Button, Image, StyleSheet, Text, View} from "react-native";
+import { Image, StyleSheet, Text, View} from "react-native";
 
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-
       <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
-      <Text style={styles.title}> Nie znaleźliśmy tego, czego szukasz</Text>
-      <Text style={styles.subtitle}>...</Text>
-      <Text style={styles.subtitle2}>Może Kimono?</Text>
-      
-
+      <Text style={styles.title}>Nie dokonałeś jeszcze rzadnych zamówień</Text>
+      <Text style={styles.subtitle}>Będą tutaj jak jakieś zrobisz</Text>
     </View>
-  );
+  )
 }
-
 const styles = StyleSheet.create({
   emptyState: {
     minHeight: '40%',
     width: '100%',
     padding: '10%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#92AF96',
+    borderRadius: 10
   },
   image: {
     width: 145,
@@ -40,19 +37,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: '3%'
   },
-  subtitle2: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#363931',
-    marginBottom: 16
-  },
   action: {
     width: '100%',
     height: 48,
     justifyContent: 'center',
-    backgroundColor: '#CA9446',
+    backgroundColor: '#fff',
     borderRadius: 6
   }
 })
 
-export default EmptyState
+export default EmptyState;

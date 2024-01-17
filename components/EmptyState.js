@@ -1,10 +1,12 @@
-import {Button, Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-      <Text style={styles.title}> Brak produktu</Text>
-      
+
+      <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
+     
+      <Text style={styles.title}> Brak polubionych produktów</Text>
     </View>
   )
 }
@@ -47,4 +49,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default EmptyState
+export default EmptyState;

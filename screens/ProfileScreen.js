@@ -1,7 +1,8 @@
 import {Text, View, StyleSheet, ScrollView} from "react-native";
-import {Input} from "native-base";
+import {StatusBar} from "expo-status-bar";
+import {Input, SearchIcon, Button, HamburgerIcon} from "native-base";
 import OrderItem from "../components/OrderItem";
-
+import OrderEmptyState from "../components/OrderEmptyState";
 
 const Wishlist = ({navigation}) => {
   const product = {
@@ -14,8 +15,22 @@ const Wishlist = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView style={{ width: '100%' }}>
-        
+        <View style={{ paddingHorizontal: 16, marginBottom: 16 }}>
+          <OrderEmptyState/>
+        </View>
+        <View style={{ paddingHorizontal: 16, marginBottom: 16, flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <Button variant="outline" leftIcon={<HamburgerIcon size="sm" />} onPress={() => navigation.push('ProfileDetailsFilterScreen')}>
+            Filters
+          </Button>
+        </View>
         <View>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
+          <OrderItem product={product}/>
           <OrderItem product={product}/>
         </View>
       </ScrollView>

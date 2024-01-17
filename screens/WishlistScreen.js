@@ -1,6 +1,4 @@
 import {Text, View, Button, StyleSheet, ScrollView} from "react-native";
-import {StatusBar} from "expo-status-bar";
-import ProductItem from "../components/ProductItem";
 import EmptyState from "../components/EmptyState";
 import Header from "../components/Header";
 import CategoryGallery from "../components/CategoryGallery";
@@ -35,7 +33,7 @@ const Wishlist = ({navigation}) => {
           <CategoryGallery/>
         </View>
         <View style={{ width: '100%', padding: 16 }}>
-          <Section title="---->" action="Dalej" actionFunc={morePress}/>
+          <Section title="You also may like" action="View all" actionFunc={morePress}/>
         </View>
       </View>
     </ScrollView>
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 195,
+    paddingTop: 140,
     paddingBottom: 250
   },
 });

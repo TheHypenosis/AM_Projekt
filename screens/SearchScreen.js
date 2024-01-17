@@ -1,6 +1,6 @@
 import {Text, View, StyleSheet, ScrollView} from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {Input, InputGroup, SearchIcon, Button, HamburgerIcon} from "native-base";
+import {Input, InputGroup, InputLeftAddon, InputRightAddon, SearchIcon, Button, HamburgerIcon} from "native-base";
 import SearchEmptyState from "../components/SearchEmptyState";
 import ProductItem from "../components/ProductItem";
 

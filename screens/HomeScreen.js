@@ -26,7 +26,6 @@ const HomeScreen = ({navigation}) => {
           }
         />
         <Header title="Wishlist" source={require('../assets/shopping-cart.png')} actionFunc={headerActionPress}/>
-        <Section title="You also may like" action="View all" actionFunc={morePress}/>
         <CategoryGallery/>
       </View>
     </ScrollView>
@@ -39,7 +38,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 50
   },
 });
 

@@ -1,36 +1,34 @@
-import {Button, Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
-export const ProductItem = ({ product, displayAction = true }) => {
+// Komponent reprezentujący element produktu
+export const ProductItem = ({ product = true }) => {
   return (
     <View style={styles.productContainer}>
-      <Image style={styles.productImage} source={{
-        uri: 'https://picsum.photos/300/300',
-      }}/>
+      <Image style={styles.productImage} source={{ uri: 'https://picsum.photos/300/300' }}/>
+      
       <View style={styles.productContent}>
         <View style={styles.productContentHeader}>
-          <Text style={styles.productContentTitle}>{ product.title }</Text>
+          <Text style={styles.productContentTitle}>{product.title}</Text>
         </View>
-        <Text style={styles.productContentPrice}>${ product.price }</Text>
+        <Text style={styles.productContentPrice}>${product.price}</Text>
         {
           product.status === 0 ? (
-            <Text style={{...styles.productContentDelivered, color: '#52565e'}}>Ordered</Text>
-          ) :
-            product.status === 1 ? (
-              <Text style={{...styles.productContentDelivered, color: '#D68F26'}}>Arriving today</Text>
-            ) :
-              product.status === 2 ? (
-                <Text style={{...styles.productContentDelivered, color: '#1E9C40'}}>Delivered 28/07/23</Text>
-              ) :
-                product.status === 3 ? (
-                  <Text style={{...styles.productContentDelivered, color: '#fd5c63'}}>Canceled</Text>
-                ) : (
-                  <Text style={{...styles.productContentDelivered, color: '#52565e'}}>Ordered</Text>
-                )
+            <Text style={{...styles.productContentDelivered, color: '#52565e'}}>Zamówione</Text>
+          ) : product.status === 1 ? (
+            <Text style={{...styles.productContentDelivered, color: '#D68F26'}}>Dotrze dzisiaj</Text>
+          ) : product.status === 2 ? (
+            <Text style={{...styles.productContentDelivered, color: '#1E9C40'}}>Dostarczone DATA: 28/07/23</Text>
+          ) : product.status === 3 ? (
+            <Text style={{...styles.productContentDelivered, color: '#fd5c63'}}>Anulowane</Text>
+          ) : (
+            <Text style={{...styles.productContentDelivered, color: '#52565e'}}>Zamówione</Text>
+          )
         }
       </View>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   productContainer: {
@@ -79,4 +77,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ProductItem
+export default ProductItem;
