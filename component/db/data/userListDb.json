@@ -1,0 +1,35 @@
+[
+    {
+        "email":"P.sroka@onet.eu",
+        "name":"Pawel",
+        "surname":"Sroka",
+        "phone":"+48 129584685",
+        "password": "psroka",
+        "photo": "ImageSroka"
+    },
+    {
+        "email": "testuser@user.test",
+        "name": "Test",
+        "surname": "User",
+        "phone": "+48 158526854",
+        "password": "test",
+        "photo": ""
+    },
+    {
+        "email": "jankowalski@email.com",
+        "name": "Jan",
+        "surname": "Kowalski",
+        "phone": "+48 197425648",
+        "password": "jkowalski",
+        "photo": "ImageKowalski"
+    },
+    {
+        "email": "leslieflores@email.com",
+        "name": "Leslie",
+        "surname": "Flores",
+        "phone": "+48 958625985",
+        "password": "lflores",
+        "photo": "ImageFlores"
+    }
+
+]
