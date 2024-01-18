@@ -1,15 +1,18 @@
 import {Image, StyleSheet, Text, View} from "react-native";
 
-
+// Komponent reprezentujący stan, gdy brak polubionych produktów
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
+      {/* Obrazek reprezentujący pusty stan */}
       <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
+      {/* Tekst informacyjny o braku polubionych produktów */}
       <Text style={styles.title}> Brak polubionych produktów</Text>
     </View>
   )
 }
 
+// Style dla komponentu EmptyState
 const styles = StyleSheet.create({
   emptyState: {
     minHeight: '40%',

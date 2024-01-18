@@ -1,10 +1,13 @@
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
-
+// Komponent reprezentujący sekcję z tytułem i opcjonalną akcją
 const Section = ({ title, action, actionFunc }) => {
   return (
     <View style={styles.section}>
+      {/* Tytuł sekcji */}
       <Text style={styles.title}>{ title }</Text>
+      
+      {/* Opcjonalna akcja w postaci tekstu, który można nacisnąć */}
       <TouchableHighlight onPress={actionFunc}>
         <Text style={styles.action}>{ action }</Text>
       </TouchableHighlight>
@@ -12,7 +15,7 @@ const Section = ({ title, action, actionFunc }) => {
   );
 }
 
-
+// Style dla komponentu Section
 const styles = StyleSheet.create({
   section: {
     width: '100%',

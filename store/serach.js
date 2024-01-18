@@ -12,7 +12,7 @@ const wishlistSlice = createSlice({
         status: 1 
       },
       {
-        id: 11,
+        id: 12,
         title: 'Aimono #MOCCA 2022',
         price: '60.00',
         like: false,

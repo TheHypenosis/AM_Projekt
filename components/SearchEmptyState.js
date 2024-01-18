@@ -1,13 +1,19 @@
 import { Image, StyleSheet, Text, View} from "react-native";
 
-
+// Komponent reprezentujący stan, gdy nie znaleziono szukanego produktu
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-    
+      {/* Obrazek reprezentujący pusty stan */}
       <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
+      
+      {/* Nagłówek informujący o braku znalezionego produktu */}
       <Text style={styles.title}> Nie znaleźliśmy tego, czego szukasz</Text>
+      
+      {/* Podtytuł z dodatkowymi informacjami */}
       <Text style={styles.subtitle}>...</Text>
+      
+      {/* Drugi podtytuł sugerujący alternatywę */}
       <Text style={styles.subtitle2}>Może Kimono?</Text>
       
 

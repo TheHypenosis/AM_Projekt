@@ -1,10 +1,12 @@
 import {Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
 
-
+// Komponent reprezentujący nagłówek
 const Header = ({ title, source, actionFunc }) => {
   return (
     <View style={styles.section}>
+      {/* Tekstowy tytuł nagłówka */}
       <Text style={styles.title}>{ title }</Text>
+      {/* Przycisk z obrazkiem do wykonywania akcji */}
       <TouchableHighlight onPress={actionFunc}>
         <Image style={styles.action} source={source}/>
       </TouchableHighlight>
@@ -24,9 +26,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#363939'
   },
-  action: {
 
-  }
 })
 
 export default Header;

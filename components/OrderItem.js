@@ -1,17 +1,23 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-
+// Komponent reprezentujący element produktu
 export const ProductItem = ({ product = true }) => {
   return (
     <View style={styles.productContainer}>
+      {/* Obrazek produktu */}
       <Image style={styles.productImage} source={{ uri: 'https://picsum.photos/300/300' }}/>
-
+      
+      {/* Zawartość produktu */}
       <View style={styles.productContent}>
+        {/* Nagłówek z tytułem produktu */}
         <View style={styles.productContentHeader}>
           <Text style={styles.productContentTitle}>{product.title}</Text>
         </View>
+        
+        {/* Cena produktu */}
         <Text style={styles.productContentPrice}>${product.price}</Text>
         
+        {/* Status zamówienia */}
         {
           product.status === 0 ? (
             <Text style={{...styles.productContentDelivered, color: '#52565e'}}>Zamówione</Text>

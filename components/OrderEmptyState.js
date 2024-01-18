@@ -1,12 +1,14 @@
 import { Image, StyleSheet, Text, View} from "react-native";
 
-
+// Komponent reprezentujący stan, gdy brak zamówień
 const EmptyState = () => {
   return (
     <View style={styles.emptyState}>
-
+      {/* Obrazek reprezentujący pusty stan */}
       <Image style={styles.image} width="145" height="145" source={require('../assets/emptyState.png')}/>
+      {/* Nagłówek informujący o braku zamówień */}
       <Text style={styles.title}>Nie dokonałeś jeszcze rzadnych zamówień</Text>
+      {/* Podtytuł z dodatkowymi informacjami */}
       <Text style={styles.subtitle}>Będą tutaj jak jakieś zrobisz</Text>
     </View>
   )

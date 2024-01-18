@@ -15,6 +15,7 @@ const SearchScreen = ({navigation}) => {
 
   const [search, setSearch] = useState('')
 
+  // Obsługa zmiany wprowadzonego tekstu w polu wyszukiwania
   const searchInputHandle = (search) => {
     setSearch(search)
     dispatch(searchActions.setFilters({
@@ -23,7 +24,7 @@ const SearchScreen = ({navigation}) => {
     }))
   }
 
-
+  // Metoda filtrująca produkty na podstawie ustawionych filtrów
   const filterMethod = (products, filters) => {
     let result = JSON.parse(JSON.stringify(products))
     if (filters.search && filters.search.length) {
@@ -57,7 +58,7 @@ const SearchScreen = ({navigation}) => {
     return result
   }
 
-
+  // Wyświetlanie przefiltrowanych produktów
   const displayProducts = useMemo(() => {
     return filterMethod(products, filters)
   }, [filters])
@@ -70,7 +71,9 @@ const SearchScreen = ({navigation}) => {
     <View style={styles.search}>
       <ScrollView>
         <View style={styles.container}>
+          {/* Ikona wyszukiwania */}
           <SearchIcon size="7" mt="0.5" mr="2" color="#000" />
+          {/* Pole tekstowe do wprowadzania tekstu wyszukiwania */}
           <Input w={{
             base: "70%",
             md: "100%",
@@ -82,12 +85,14 @@ const SearchScreen = ({navigation}) => {
               {
                 displayProducts && displayProducts.length ? (
                   <><>
+                    {/* Przycisk filtra */}
                     <View style={{ paddingHorizontal: 16, marginBottom: 16, flexDirection: 'row', justifyContent: 'flex-end' }}>
                       <Button variant="outline" leftIcon={<HamburgerIcon size="sm" />} onPress={() => navigation.push('SearchFilterScreen')}>
                         Filters
                       </Button>
                     </View>
                     <View>
+                      {/* Wyświetlanie przefiltrowanych produktów */}
                       {
                         displayProducts.map(p => ( <ProductItem product={p} key={p.id}/> ))
                       }
@@ -97,6 +102,7 @@ const SearchScreen = ({navigation}) => {
                     </View></>
                 ) : (
                   <View style={{ paddingHorizontal: 16 }}>
+                    {/* Komponent wyświetlający pusty stan wyników wyszukiwania */}
                     <SearchEmptyState/>
                   </View>
                 )
