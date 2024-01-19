@@ -271,7 +271,6 @@ const createTables = () => {
     });
   };
 
-
   const initializeDatabase = async () => {
     console.log('Initializing database...');
     //To clear the DB, uncomment the 2 lines below.

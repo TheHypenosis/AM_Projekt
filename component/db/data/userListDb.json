@@ -8,6 +8,14 @@
         "photo": "ImageSroka"
     },
     {
+        "email":"mail",
+        "name":"test",
+        "surname":"test",
+        "phone":"+48 129584685",
+        "password": "haslo",
+        "photo": ""
+    },
+    {
         "email": "testuser@user.test",
         "name": "Test",
         "surname": "User",
