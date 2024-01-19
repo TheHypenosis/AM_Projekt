@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../userHandling/UserContext';
 import { getUserData } from '../db/queries/authValidation.query';
@@ -139,6 +139,8 @@ const styles = StyleSheet.create({
     color: '#363939',
     marginBottom: 300,
     marginTop: -200,
+    position: 'absolute',
+    bottom: -250,
   },
   errorMessage: {
     color: 'red',
