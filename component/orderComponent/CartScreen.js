@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, View, ScrollView, SafeAreaView, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { useCart } from '../orderComponent/CartContext'
 
-const CartScreen = ({ route, navigation }) => {
+const CartScreen = ({ navigation }) => {
   const { cartState, dispatch } = useCart();
   const { items } = cartState;
   const [sum, setSum] = useState(0);
@@ -11,7 +11,7 @@ const CartScreen = ({ route, navigation }) => {
     // Calculate the total sum when the items array changes
     const totalSum = items.reduce((total, item) => {
       const formattedPrice = parseFloat(item.price.replace('$', '').replace(',', ''));
-      const itemPrice = typeof formattedPrice === 'number' ? formattedPrice : 0; // Use formattedPrice here
+      const itemPrice = typeof formattedPrice === 'number' ? formattedPrice : 0;
       const itemQuantity = typeof item.quantity === 'number' ? item.quantity : 0;
         
       return total + itemPrice * itemQuantity;
@@ -22,11 +22,6 @@ const CartScreen = ({ route, navigation }) => {
 
   const handleGoBack = () => {
     navigation.goBack();
-  };
-
-  const handleRemoveItem = (prodID) => {
-    // Dispatch an action to remove the item from the cart
-    dispatch({ type: 'REMOVE_FROM_CART', payload: { prodID } });
   };
 
   const handleIncreaseAmount = (prodID) => {
@@ -130,8 +125,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 20,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#D2D3D3',
   },
   productImage: {
     width: '40%',
@@ -187,7 +180,7 @@ const styles = StyleSheet.create({
   bottomBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center', // Add this line
+    alignItems: 'center',
     padding: 10,
     position: 'absolute',
     bottom: 0,
@@ -226,7 +219,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '60%',
     alignItems: 'center',
-    backgroundColor: '#B0B0B0', // Different color for disabled state
+    backgroundColor: '#B0B0B0',
     borderColor: '#B0B0B0',
     marginRight: 20,
     paddingTop: 12,

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View, ScrollView, SafeAreaView, StyleSheet, ImageBackground } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, TouchableOpacity, View, StyleSheet, ImageBackground } from 'react-native';
 import { useCart } from './CartContext'
 import { useUser } from '../userHandling/UserContext';
 import { setStatus, setOrder, setOrdersProducts } from '../db/queries/newOrder.query';
@@ -59,62 +59,62 @@ const OrderFinalized = ( { route, navigation } ) => {
         </ImageBackground>
       );
     };
-    const styles = StyleSheet.create({
-        backgroundImage: {
-          flex: 1,
-          resizeMode: 'cover', // or 'stretch'
-        },
-        container: {
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 20,
-        },
-        content: {
-          alignItems: 'center',
-        },
-        title: {
-          fontFamily:'LoraSemiBold',
-          fontSize: 40,
-          marginBottom: 10,
-          color: '#363939', 
-          textAlign: 'center', // Center the text horizontally
-          textAlignVertical: 'center', // Center the text vertically
-        },
-        subtitle: {
-          fontFamily:'InterRegular',
-          fontSize: 16,
-          textAlign: 'center',
-          color: '#57595A', // Text color on top of the image
-        },
-        button: {
-            backgroundColor: '#CA9446',
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 5,
-          },
-        buttonText: {
-          color: '#363939',
-          fontSize: 16,
-          fontFamily:'InterMedium',
-        },
-        bottomContent: {
-            width: '80%', // Set width to 80% of the parent container
-            flex: 1,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            marginBottom: 36, // Adjust the margin as needed
-        },
-        textContainer: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        bottomContent: {
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            marginBottom: 36, // Adjust the margin as needed
-        },
-      });
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', 
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  content: {
+    alignItems: 'center',
+  },
+  title: {
+    fontFamily:'LoraSemiBold',
+    fontSize: 40,
+    marginBottom: 10,
+    color: '#363939', 
+    textAlign: 'center', 
+    textAlignVertical: 'center',
+  },
+  subtitle: {
+    fontFamily:'InterRegular',
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#57595A',
+  },
+  button: {
+      backgroundColor: '#CA9446',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+    },
+  buttonText: {
+    color: '#363939',
+    fontSize: 16,
+    fontFamily:'InterMedium',
+  },
+  bottomContent: {
+      width: '80%', 
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      marginBottom: 36, 
+  },
+  textContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  bottomContent: {
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      marginBottom: 36, 
+  },
+});
       
       export default OrderFinalized;

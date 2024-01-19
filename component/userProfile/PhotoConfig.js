@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Button, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useUser } from '../userHandling/UserContext';
 import { saveImageToDatabase } from '../db/queries/imagesInfo.query';
@@ -9,7 +9,7 @@ export default function PhotoConfig({ navigation }) {
   const [image, setImage] = useState(null);
 
   const handleGoBack = () => {
-    navigation.goBack(); // This will go back to the previous screen
+    navigation.goBack(); 
   };
 
   const doQuery = async () => {
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#363939',
     width:150,
     height:40,
-    justifyContent: 'center', // Center text vertically
-    alignItems: 'center', // Center text horizontally
+    justifyContent: 'center', 
+    alignItems: 'center',
     marginBottom:40,
   },
   imageText:{

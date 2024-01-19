@@ -1,15 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState  } from 'react';
-import { StyleSheet, Image, LogBox, View, Text   } from 'react-native';
+import React from 'react';
+import { StyleSheet, Image, View, Text   } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useUser } from './component/userHandling/UserContext.js';
 import { FontProvider } from './component/mainViewComponent/FontContext';
-
+import { CartProvider } from './component/orderComponent/CartContext.js';
 import Home from './component/mainViewComponent/Home.js';
 import Profile from './component/userProfile/UserProfile.js';
-import initializeDatabase from './component/db/dbInit';
 import SearchFilter from './component/prodCatalog/SearchFilter.js';
 import ProductScreen from './component/prodCatalog/ProductScreen.js';
 import PaymentMethodConfig from './component/userProfile/PaymentMethodConfig.js';
@@ -22,7 +21,7 @@ import WelcomeScreen from './component/authentication/WelcomeScreen';
 import LoginScreen from './component/authentication/LoginScreen';
 import RegisterScreen from './component/authentication/RegisterScreen';
 import AppWrapper from './AppWraper.js';
-import { CartProvider } from './component/orderComponent/CartContext.js';
+
 
 
 const Stack = createStackNavigator();
@@ -125,15 +124,7 @@ export function MainView() {
 }
 
 function App() {
-  const [userToken, setUserToken] = React.useState(null);
-
-  useEffect(() => {
-    initializeDatabase();
-    LogBox.ignoreLogs(['ViewPropTypes will be removed']);
-  }, []);
-
   const { user } = useUser();
-  console.log('Current user:', user);
 
   return (
     
@@ -142,7 +133,7 @@ function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
           {user == null ? (
-              // No token found, user isn't signed in
+              // No user found, user isn't signed in
               <Stack.Screen name="Auth" component={AuthView} />
             ) : (
               // User is signed in
@@ -166,7 +157,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabText: {
-    //fontFamily: 'InterRegular',
     fontSize: 10,
     color: '#1F2223',
   }

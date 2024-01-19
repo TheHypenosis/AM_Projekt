@@ -7,13 +7,12 @@ import { UserImage } from '../imageHandler/userImageHandler';
 
 const windowWidth = Dimensions.get('window').width;
 
-
 export default function Profile() {
     const { user, updateUser } = useUser();
     const userImageKey = user.Photo;
     const [selectedImage, setSelectedImage] = useState();
     const navigation = useNavigation();
-    const isFocused = useIsFocused();  // Use isFocused hook
+    const isFocused = useIsFocused(); 
     const [reloadImage, setReloadImage] = useState(false);
     
     const optionsData = [
@@ -48,13 +47,6 @@ export default function Profile() {
       // Return the unsubscribe function to clean up the listener
       return unsubscribe;
     }, [navigation, isFocused]); 
-
-    
-
-    function viewOptions() {
-        return console.log("View All Button pressed - Options!");
-      }
-
       
       const renderOptionsCarouselItem = ({ item }) => {
 
@@ -103,9 +95,6 @@ export default function Profile() {
             <View style={styles.configContainer}>
                 <View style={styles.configHeaderContainer}>
                     <Text style={styles.configHeaderText}>Account</Text>
-                    <TouchableOpacity onPress={viewOptions}>
-                        {/* <Text style={styles.viewAllText}>View all</Text> */}
-                    </TouchableOpacity>
                 </View>
                 <View>
                 <Carousel
@@ -114,11 +103,10 @@ export default function Profile() {
                     sliderWidth={windowWidth}
                     itemWidth={windowWidth - 240}
                     layout="default"
-                    inactiveSlideScale={1} // Scale factor for inactive slides
-                    inactiveSlideOpacity={1} // Opacity for inactive slides
+                    inactiveSlideScale={1} 
+                    inactiveSlideOpacity={1} 
                     firstItem={0} 
                     activeSlideAlignment="start"
-                    //contentContainerCustomStyle={{ paddingLeft: 20, paddingRight: 40, overflow: 'visible' }} 
                 />
                 </View>
             </View>
@@ -141,8 +129,8 @@ const styles = StyleSheet.create({
         paddingLeft:10,
       },
       userPhotoContainer: {
-        alignItems: 'center', // Center children horizontally
-        position: 'relative', // Allow absolute positioning for the Edit button
+        alignItems: 'center', 
+        position: 'relative',
         marginTop:30,
     },
       photoEditButton: {
@@ -153,9 +141,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         width: 60,
-        height: 35, // Set a fixed height for the button
-        justifyContent: 'center', // Center text vertically
-        alignItems: 'center', // Center text horizontally
+        height: 35, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
       },
       userPhoto: {
         width: 180,
@@ -190,9 +178,9 @@ const styles = StyleSheet.create({
       optionsCarouselItem:{
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#F0F0F0', // Set your desired background color
-        padding: 16, // Adjust the padding as needed
-        borderRadius: 10, // Adjust the border radius as needed
+        backgroundColor: '#F0F0F0', 
+        padding: 16, 
+        borderRadius: 10, 
         backgroundColor: '#F6F6F6',
         marginLeft: 16,
         height:120,
@@ -201,9 +189,9 @@ const styles = StyleSheet.create({
       optionsCarouselImage:{
       },
       optionsCarouselText:{
-        marginTop: 8, // Adjust the margin as needed
-        fontSize: 16, // Adjust the font size as needed
-        fontWeight: 'bold', // Adjust the font weight as needed
+        marginTop: 8, 
+        fontSize: 16, 
+        fontWeight: 'bold', 
       },
       modalContainer: {
         flex: 1,

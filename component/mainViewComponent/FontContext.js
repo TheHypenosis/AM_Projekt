@@ -9,14 +9,13 @@ export const FontProvider = ({ children }) => {
   useEffect(() => {
     const loadFonts = async () => {
       await Font.loadAsync({
-        LoraRegular: require('../../assets/fonts/Lora/Lora-Regular.ttf'), // Update the path
-        LoraItalic: require('../../assets/fonts/Lora/Lora-Italic.ttf'), // Update the path
-        LoraBold: require('../../assets/fonts/Lora/Lora-Bold.ttf'), // Update the path
+        LoraRegular: require('../../assets/fonts/Lora/Lora-Regular.ttf'), 
+        LoraItalic: require('../../assets/fonts/Lora/Lora-Italic.ttf'), 
+        LoraBold: require('../../assets/fonts/Lora/Lora-Bold.ttf'), 
         LoraSemiBold: require('../../assets/fonts/Lora/static/Lora-SemiBold.ttf'),
         InterRegular: require('../../assets/fonts/Inter/static/Inter-Regular.ttf'),
         InterSemiBold: require('../../assets/fonts/Inter/static/Inter-SemiBold.ttf'),
         InterMedium: require('../../assets/fonts/Inter/static/Inter-Medium.ttf'),
-        // Add other variants if needed
       });
 
       setFontsLoaded(true);

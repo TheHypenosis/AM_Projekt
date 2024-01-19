@@ -5,14 +5,12 @@ import { getCategories } from '../db/queries/categories.query';
 import { productImage } from '../imageHandler/productImageHandler'
 import { useNavigation } from '@react-navigation/native';
 
-
 const SearchFilter = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const navigation = useNavigation();
-
 
   const toggleFilterModal = () => {
     setShowFilterModal(!showFilterModal);
@@ -25,7 +23,6 @@ const SearchFilter = () => {
         setSearchResults(results);
 
         const resultsMappedData = results.map((item, index) => {
-          // Use the dynamic key to access the image
           const productImageKey = `${item.Image}`;
           const productImageObj = productImage[productImageKey];
 
@@ -49,7 +46,7 @@ const SearchFilter = () => {
 
   const handleClearInput = () => {
     setSearchInput('');
-    setSearchResults([]); // Clear search results
+    setSearchResults([]); 
   };
 
   useEffect(() => {
@@ -63,12 +60,13 @@ const SearchFilter = () => {
     };
 
     fetchCategories();
-  }, []); // Fetch categories on component mount
+  }, []); 
 
-  useEffect(() => {
     // Trigger the search directly when searchInput changes
+  useEffect(() => {
+
     handleSearch();
-  }, [searchInput]); // Watch for changes in searchInput
+  }, [searchInput]); 
 
   const handleCategoryPress = (categoryName) => {
     // Trim the category name before setting it in the TextInput
@@ -100,7 +98,6 @@ const SearchFilter = () => {
       onPress={() => handleCategoryPress(category.Name)}
     >
       <Text style={styles.categoryText}>{category.Name}</Text>
-      {/* Add other components for the icon */}
       <Image source={require(`../../assets/img/Search/chevron-right.png`)} style={styles.categoryIcon} />
     </TouchableOpacity>
   );
@@ -126,7 +123,7 @@ const SearchFilter = () => {
             style={styles.textInput}
             onEndEditing={() => {
               if (searchInput.trim() === '') {
-                setSearchResults([]); // Clear search results
+                setSearchResults([]); 
               }
             }}
           />
@@ -160,14 +157,13 @@ const SearchFilter = () => {
             </View>
 
             {/* "Filters" button */}
-              <TouchableOpacity onPress={toggleFilterModal}>
+            <TouchableOpacity onPress={toggleFilterModal}>
               <View style={styles.filtersButtonContainer}>
                 <Image source={require('../../assets/img/Search/sliders.png')} style={styles.filterIcon} />
                 <Text style={styles.filterText}>Filters</Text>
-                </View>
-              </TouchableOpacity>
-            
-          </View>
+              </View>
+            </TouchableOpacity>
+      </View>
       )}
 
 
@@ -204,13 +200,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   leftIcon: {
-    width: 20, // Adjust the width as needed
-    height: 20, // Adjust the height as needed
-    marginRight: 10, // Adjust the margin as needed
+    width: 20, 
+    height: 20, 
+    marginRight: 10, 
   },
   textInput: {
     flex: 1,
-    height: 40, // Adjust the height as needed
+    height: 40, 
     fontSize: 16,
     fontFamily: 'InterRegular',
     paddingLeft: 10,
@@ -288,9 +284,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     marginTop: 10,
-    borderTopWidth: 1,  // Add a border at the top
+    borderTopWidth: 1,  
     borderBottomWidth: 1,
-    borderColor: '#D2D3D3',  // Adjust the color as needed
+    borderColor: '#D2D3D3',  
   },
   filtersButtonContainer:{
     flexDirection: 'row',  

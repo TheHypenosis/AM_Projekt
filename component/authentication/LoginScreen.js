@@ -9,20 +9,17 @@ const LoginScreen = () => {
     const navigation = useNavigation();
 
     const { setUser } = useUser();
-    const [loggedInUser, setLoggedInUser] = useState(/* your user object here */);
-    const [errorMessage, setErrorMessage] = useState(''); // Add error message state
+    const [loggedInUser, setLoggedInUser] = useState();
+    const [errorMessage, setErrorMessage] = useState(''); 
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
   
     const handleLogin = async () => {
-      // Hardcoded login and password for testing purposes
-      console.log(login);
       try {
         // Fetch user data from the database
         const userData = await getUserData({ login, password });
-  
-        // Assuming the query returns an array with user data
+
         if (userData && userData.length > 0) {
           const user = userData[0];
           setLoggedInUser(user);
@@ -70,7 +67,7 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between', // Update to space-between
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   backgroundImage: {

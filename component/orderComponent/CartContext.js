@@ -11,8 +11,6 @@ const CartContext = createContext();
 // Define the cart reducer
 const cartReducer = (state, action) => {
     switch (action.type) {
-      // ... (your existing cases)
-  
       case 'INCREASE_AMOUNT':
         return {
           ...state,
@@ -50,7 +48,7 @@ const cartReducer = (state, action) => {
     case 'CLEAR_CART':
       return {
         ...state,
-        items: [], // Set the items array to an empty array to clear the cart
+        items: [],
       };
   
       default:

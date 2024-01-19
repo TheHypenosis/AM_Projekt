@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View, ScrollView, SafeAreaView, StyleSheet, Image, TouchableHighlight, TextInput } from 'react-native';
 import { getPaymentInfo } from '../db/queries/creditInfo.query';
 import { getAddressInfo } from '../db/queries/addressInfo.query';
-import { useCart } from '../orderComponent/CartContext'
 import { useUser } from '../userHandling/UserContext';
-
 
 const CheckoutScreen = ({ route, navigation }) => {
     const [addressInfoMapped, setAddressInfoMapped] = useState([]); 
@@ -34,15 +32,12 @@ const CheckoutScreen = ({ route, navigation }) => {
             });
 
             setAddressInfoMapped(addressInfoMapped);
-            console.log('Mapped Address Info: ', addressInfoMapped);
         } catch (error) {
             console.error('Error fetching default address info:', error);
         }
 
         try {
             const defaultPaymentInfo = await getPaymentInfo(user.PaymentMethod);
-            console.log('Default Payment Info:', defaultPaymentInfo.CCV);
-
             const paymentInfoMapped = defaultPaymentInfo.map((item) => {
                 return {
                     key: item.ID,
@@ -54,7 +49,6 @@ const CheckoutScreen = ({ route, navigation }) => {
             });
 
             setPaymentInfoMapped(paymentInfoMapped);
-            console.log('Mapped Payment Info: ', paymentInfoMapped);
         } catch (error) {
             console.error('Error fetching default payment info:', error);
         }
@@ -66,12 +60,11 @@ const CheckoutScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-          // Fetch data when the screen comes into focus
           fetchData();
         });
     
         return unsubscribe;
-      }, [navigation]); // Add navigation as a dependency
+      }, [navigation]); 
     
 
     return (
@@ -225,8 +218,8 @@ const styles = StyleSheet.create({
     contentHeaderContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-end', // Align items at the bottom
-        paddingBottom: 30, // Adjusted paddingBottom
+        alignItems: 'flex-end', 
+        paddingBottom: 30, 
         },
     contentHeaderText: {
         fontFamily: 'LoraSemiBold',
@@ -241,9 +234,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         width: 60,
-        height: 35, // Set a fixed height for the button
-        justifyContent: 'center', // Center text vertically
-        alignItems: 'center', // Center text horizontally
+        height: 35, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
     },
     paymentMethodCardContainer: {
         position: 'relative',
@@ -252,8 +245,8 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         resizeMode: 'cover',
-        width: '100%', // Use 100% width to cover the entire container
-        height: 210, // Use 100% height to cover the entire container
+        width: '100%', 
+        height: 210, 
         left:20,
     },
         overlayContent: {
@@ -326,7 +319,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#363939',
         borderRadius: 6,
         padding: 10,
-        marginLeft: 10, // Adjust the margin as needed
+        marginLeft: 10, 
     },
     submitButtonText: {
         color: '#FFFFFF',
@@ -359,7 +352,6 @@ const styles = StyleSheet.create({
         marginTop:15,
         marginLeft:20,
         marginRight:20,
-        // marginBottom:10,
     },
     paymentFinalizationBasicText:{
         fontFamily: 'InterSemiBold',
@@ -390,8 +382,8 @@ const styles = StyleSheet.create({
         width: '90%',
         alignItems: 'center',
         backgroundColor: '#363939',
-        alignSelf: 'center',  // Align the button to the center horizontally
-        marginTop: 20,        // Adjust the margin as needed
+        alignSelf: 'center',  
+        marginTop: 20,        
         paddingTop: 10,
         paddingBottom: 10,
       },

@@ -2,8 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableHighlight, Te
 import React, { useEffect, useState } from 'react';
 
 import { useUser, updateUser } from '../userHandling/UserContext';
-import { getPaymentInfo, setPaymentInfo, updatePaymentInfo, updateUserPaymentInfo } from '../db/queries/creditInfo.query';
-import { getNewUserData } from '../db/queries/userUpdate.query';
+import { getPaymentInfo, setPaymentInfo, updateUserPaymentInfo } from '../db/queries/creditInfo.query';
 
 const PaymentMethodConfig = ({ navigation }) => {
     const [paymentInfoMapped, setPaymentInfoMapped] = useState([]);  
@@ -126,7 +125,7 @@ const PaymentMethodConfig = ({ navigation }) => {
         return isLengthValid;
       };
     const isValidCCV = (CCV) => {
-        // Basic validation: check if the card number has 16 digits
+        // Basic validation: check if the card number has 3 digits
         const isLengthValid = /^\d{3}$/.test(CCV);
         return isLengthValid;
       };
@@ -237,7 +236,7 @@ const PaymentMethodConfig = ({ navigation }) => {
                     style={emptyFields || errors ? styles.saveButtonEmpty : styles.saveButton}
                     onPress={handlePaymentSaving}
                     underlayColor={emptyFields || errors ? '#B0B0B0' : '#444'} 
-                    >
+                >
                     <Text style={styles.saveButtonText}>Save</Text>
                 </TouchableHighlight>
             </View>
@@ -265,9 +264,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         width: 60,
-        height: 35, // Set a fixed height for the button
-        justifyContent: 'center', // Center text vertically
-        alignItems: 'center', // Center text horizontally
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     cardInfoContainer:{
         paddingTop:10,

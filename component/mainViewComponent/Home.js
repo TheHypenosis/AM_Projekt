@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, TouchableOpacit
 import Carousel from 'react-native-snap-carousel';
 import { useNavigation } from '@react-navigation/native';
 import { productImage } from '../imageHandler/productImageHandler'
-
 import { getBestsellerShowcase } from '../db/queries/showcaseObject.query';
 import { getNewsFeedShowcase } from '../db/queries/showcaseObject.query';
 import { useFontsLoaded} from './FontContext';
@@ -16,7 +15,6 @@ const Home = () => {
   const fontsLoaded = useFontsLoaded();
   const carouselRef = useRef(null);
   const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -30,7 +28,6 @@ const Home = () => {
 
         // Map data to newsCarouselData format
         const newsMappedData = newsShowcaseData.map((item, index) => {
-          // Use the dynamic key to access the image
           const productImageKey = `${item.Image}`;
           const productImageObj = productImage[productImageKey];
 
@@ -45,7 +42,6 @@ const Home = () => {
         });
 
         const bestsellerMappedData = bestsellerShowcaseData.map((item, index) => {
-          // Use the dynamic key to access the image
           const productImageKey = `${item.Image}`;
           const productImageObj = productImage[productImageKey];
 
@@ -185,8 +181,8 @@ const Home = () => {
             itemHeight={(windowWidth - 160) * 1.5}
             layout="default"
             loop
-            inactiveSlideScale={0.9} // Scale factor for inactive slides
-            inactiveSlideOpacity={0.7} // Opacity for inactive slides
+            inactiveSlideScale={0.9} 
+            inactiveSlideOpacity={0.7} 
             firstItem={0} 
             activeSlideAlignment="start"
             contentContainerCustomStyle={{ paddingLeft: 20, paddingRight: 40, overflow: 'visible' }} 
@@ -205,8 +201,8 @@ const Home = () => {
             itemHeight={(windowWidth - 200) * 0.7}
             layout="default"
             loop
-            inactiveSlideScale={1} // Scale factor for inactive slides
-            inactiveSlideOpacity={1} // Opacity for inactive slides
+            inactiveSlideScale={1} 
+            inactiveSlideOpacity={1} 
             firstItem={0} 
             activeSlideAlignment="start"
             contentContainerCustomStyle={{ paddingLeft: 20, paddingRight: 40, overflow: 'visible' }} 
@@ -256,17 +252,17 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   resizedPhoto: {
-    width: '100%', // Take up the entire width of the screen
+    width: '100%', 
     marginBottom: 15,
-    resizeMode: 'cover', // Ensure the image covers the entire space without stretching
+    resizeMode: 'cover', 
   },
   slide: {
     backgroundColor:'floralwhite',
-              borderRadius: 5,
-              height: 250,
-              padding: 50,
-              marginLeft: 25,
-              marginRight: 25,
+    borderRadius: 5,
+    height: 250,
+    padding: 50,
+    marginLeft: 25,
+    marginRight: 25,
   },
   cardTitle: {
     fontSize: 30,
@@ -281,14 +277,13 @@ const styles = StyleSheet.create({
   newsCarouselImage: {
     width: '100%',
     height: 300,
-    //resizeMode: 'cover',
     borderRadius: 8,
     marginBottom: 16,
     zIndex: 2,
   },
   textContainer: {
     position: 'absolute',
-    bottom: -50, // Adjusted to be above the image
+    bottom: -50,
     left: 0,
     right: 0,
     padding: 8,
@@ -330,7 +325,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   arrowIcon: {
-    marginLeft: 10, // Adjust the spacing between the title and arrows
+    marginLeft: 10,
   },
   bestsellersContainer: {
     flexDirection: 'row',

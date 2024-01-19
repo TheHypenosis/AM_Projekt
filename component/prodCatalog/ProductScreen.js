@@ -21,17 +21,16 @@ const addToCart = () => {
       // Dispatch an action to add the item to the cart
       dispatch({ type: 'ADD_TO_CART', payload: item });
     }
-    // Add any additional logic if needed when the size is not available
   };
 
   const handleGoBack = () => {
-    navigation.goBack(); // This will go back to the previous screen
+    navigation.goBack();
   };
     console.log('PRODID: ',item.prodID);
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
-        const availabilityData = await getAvailability(item.prodID); // Assuming item has a property 'prodID'
+        const availabilityData = await getAvailability(item.prodID); 
         console.log('Availability Query:', availabilityData);
         setSizeAvailability(availabilityData);
       } catch (error) {
