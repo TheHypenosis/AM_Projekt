@@ -4,7 +4,7 @@ import { StyleSheet, Image, LogBox, View, Text   } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { useUser } from './component/userHandling/UserContext.js';
 import { FontProvider } from './component/mainViewComponent/FontContext';
 
 import Home from './component/mainViewComponent/Home.js';
@@ -125,6 +125,7 @@ export function MainView() {
 }
 
 function App() {
+  const [userToken, setUserToken] = React.useState(null);
 
   useEffect(() => {
     initializeDatabase();

@@ -4,16 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useUser } from '../userHandling/UserContext';
 import { getUserData } from '../db/queries/authValidation.query';
 
-
-
 const LoginScreen = () => {
 
     const navigation = useNavigation();
 
-
     const { setUser } = useUser();
+    const [loggedInUser, setLoggedInUser] = useState(/* your user object here */);
     const [errorMessage, setErrorMessage] = useState(''); // Add error message state
-
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
