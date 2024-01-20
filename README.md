@@ -6,25 +6,25 @@ Projekt aplikacji mobilnej sklepu odzieżowego został stworzony przez zespół 
 
 ## Funkcjonalności
 
-    Logowanie i rejestracja użytkowników
-    Zarządzanie profilem użytkownika, w tym dodawanie zdjęcia profilowego za pomocą aparatu
-    Przeglądanie katalogu produktów z możliwością filtrowania
-    Składanie zamówień oraz przeglądanie historii zamówień
-    Zarządzanie koszykiem zakupów
-    Dodawanie produktów do listy życzeń
-    Edycja danych adresowych i płatniczych użytkownika
-    Wsparcie dla ekranów o różnych rozdzielczościach
+- Logowanie i rejestracja użytkowników
+- Zarządzanie profilem użytkownika, w tym dodawanie zdjęcia profilowego za pomocą aparatu
+- Przeglądanie katalogu produktów z możliwością filtrowania
+- Składanie zamówień oraz przeglądanie historii zamówień
+- Zarządzanie koszykiem zakupów
+- Dodawanie produktów do listy życzeń
+- Edycja danych adresowych i płatniczych użytkownika
+- Wsparcie dla ekranów o różnych rozdzielczościach
 
 ## Technologie
 
 Projekt wykorzystuje technologie takie jak:
 
-    React Native
-    React Navigation
-    Expo SQLite
-    Expo File System
-    Expo Image Picker
-    Expo Font
+- React Native
+- React Navigation
+- Expo SQLite
+- Expo File System
+- Expo Image Picker
+- Expo Font
 
 ## Struktura Projektu
 
@@ -38,17 +38,17 @@ Instalacja i Uruchamianie
 
 ## Podział Pracy
 
-    Paweł Sroka: Moduł katalogu produktów, moduł profilu użytkownika.
-    Adam Kołodziejczyk: Moduł koszyka, moduł zamówień.
-    Przemysław Kusztal: Moduł logowania, moduł rejestracji.
-    Kajetan Gadomski: Moduł listy życzeń, moduł filtrowania.
+- Paweł Sroka: Moduł katalogu produktów, moduł profilu użytkownika.
+- Adam Kołodziejczyk: Moduł koszyka, moduł zamówień.
+- Przemysław Kusztal: Moduł logowania, moduł rejestracji.
+- Kajetan Gadomski: Moduł listy życzeń, moduł filtrowania.
 
 ## Autorzy
 
-    Przemysław Kusztal
-    Adam Kołodziejczyk
-    Kajetan Gadomski
-    Paweł Sroka
+- Przemysław Kusztal
+- Adam Kołodziejczyk
+- Kajetan Gadomski
+- Paweł Sroka
 
 ## Licencja
 
