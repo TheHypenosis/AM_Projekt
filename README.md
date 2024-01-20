@@ -1,25 +1,8 @@
-<h1 align="center">Aplikacja Mobilna Sklepu Odzieżowego <img align="right" src="./assets//img/Home/Logo.png" width="100"></h1>
+### Aplikacja Mobilna Sklepu Odzieżowego 
 
 ## Opis Projektu
 
 Projekt aplikacji mobilnej sklepu odzieżowego został stworzony przez zespół studentów Politechniki Świętokrzyskiej w ramach przedmiotu "Aplikacje Mobilne - Projekt". Aplikacja jest dedykowana platformie React Native, co pozwala na łatwe przenoszenie między różnymi systemami operacyjnymi mobilnymi.
-
-## Showcase Zdjęć Projektu
-
-1. Ekran powitalny
-   ![Ekran Powitlany](./assets/img/ReadmeImages/Welcome.jpg)
-
-2. Ekran główny/Home:
-   ![Ekran Główny](./assets/img/ReadmeImages/Home.jpg)
-
-3. Katalog produktów:
-   ![Katalog Produktów](./assets/img/ReadmeImages/Catalog.jpg)
-
-4. Ekran koszyka:
-   ![Ekran Koszyka](./assets/img/ReadmeImages/Cart.jpg)
-
-5. Profil użytkownika:
-   ![Profil Użytkownika](./assets/img/ReadmeImages/Profile.jpg)
 
 ## Funkcjonalności
 
